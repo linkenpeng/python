@@ -1,0 +1,13 @@
+account log:
+ignored: could not convert string to float: 'previous balance\n' 
+data: 25.0 processed 
+ignored: could not convert string to float: 'debits\n' 
+data: 21.64 processed 
+data: 541.24 processed 
+data: 25.0 processed 
+ignored: could not convert string to float: 'credits\n' 
+data: -25.0 processed 
+data: -541.24 processed 
+ignored: could not convert string to float: 'finace charge/late fees\n' 
+data: 7.3 processed 
+data: 5.0 processed 
