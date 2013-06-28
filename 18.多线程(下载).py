@@ -1,17 +1,16 @@
-# coding=utf-8
+#coding=gb2312
 #/usr/bin/env python
 
-"å¤šçº¿ç¨‹ä¸‹è½½æ–‡ä»¶"
+'¶àÏß³ÌÏÂÔØ'
 
-from time import ctime
-from myThread import MyThread
 import urllib2
-import urllib
+import time
+from myThread import MyThread
 
 def downFile(url):
     response = urllib2.urlopen(url)
-    html = response.read()
-    return html
+    content = response.read()
+    return content
 	
 def mFunc(func, fileUrls):
     urlslen = range(len(fileUrls))
@@ -27,15 +26,22 @@ def mFunc(func, fileUrls):
         
     for i in urlslen:
         print('join: ', i)
-        mThread[i].join()     
-        print(mThread[i].getResult())
+        mThread[i].join()
+#        print(mThread[i].getResult())
 
-fileUrls = ['http://img2.3lian.com/img2007/17/08/001.jpg','http://img2.3lian.com/img2007/17/08/002.jpg']
+fileUrls = ['http://img2.3lian.com/img2007/17/08/001.jpg',
+            'http://img2.3lian.com/img2007/17/08/002.jpg',
+            'http://img2.3lian.com/img2007/17/08/003.jpg',
+            'http://img2.3lian.com/img2007/17/08/004.jpg',
+            'http://img2.3lian.com/img2007/17/08/005.jpg',
+            'http://img2.3lian.com/img2007/17/08/006.jpg',
+            ]
         
 def main():
+    start = time.time()
     mFunc(downFile, fileUrls)
+    end = time.time()
+    print((end - start),'Ãë')
      
 if __name__ == '__main__':
     main()
-    
-
