@@ -1,9 +1,8 @@
 # coding=gb2312
 #/usr/bin/env python
 
-from time import  ctime
+from time import ctime
 import threading
-
 
 class MyThread(threading.Thread):
     
@@ -17,9 +16,7 @@ class MyThread(threading.Thread):
         return self.res
             
     def run(self):
-        print('starting ' + self.name + ' at: ' + ctime())
         self.res = apply(self.func, self.args)
-        print(self.name + ' finished at: ' + ctime())
     
     
 
