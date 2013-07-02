@@ -26,7 +26,7 @@ def makeDirs(filename):
     else:
         dir = filename[0 : filename.rindex('/')]        
     if not os.path.exists(dir):
-        os.makedirs(dir, 0777)
+        os.makedirs(dir, 777)
     
 def mFunc(func, fileUrls):
     urlslen = range(len(fileUrls))

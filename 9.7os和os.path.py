@@ -3,6 +3,9 @@
 
 import os
 
+print(__file__)
+print(os.path.dirname(__file__))
+
 for tmpdir in ('/tmp','C:\TEMP'):
     if os.path.isdir(tmpdir):
         break
