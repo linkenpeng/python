@@ -48,7 +48,6 @@ def gethtml(url):
         row = curs.fetchone()
         if row:
             # find the target
-            #print deserialize(str(row[1]))
             return deserialize(str(row[1]))
 
         response = urllib2.urlopen(url)
@@ -106,41 +105,19 @@ total = 0;
 #debug
 debug = 0
 
-# Fetch menupalace.com's html
-print 'Fetching html from http://menupalace.com ...'
-html = gethtml('http://menupalace.com')
+# Fetch www.baidu.com's html
+print 'Fetching html from http://www.baidu.com ...'
+html = gethtml('http://www.baidu.com/s?ie=utf-8&bs=%E7%BE%8E%E5%AE%B9&f=8&rsv_bp=1&wd=%E7%BE%8E%E5%AE%B9&inputT=0')
 
-try:
-  from lxml import etree
-  print("running with lxml.etree")
-except ImportError:
-  try:
-    # Python 2.5
-    import xml.etree.cElementTree as etree
-    print("running with cElementTree on Python 2.5+")
-  except ImportError:
-    try:
-      # Python 2.5
-      import xml.etree.ElementTree as etree
-      print("running with ElementTree on Python 2.5+")
-    except ImportError:
-      try:
-        # normal cElementTree install
-        import cElementTree as etree
-        print("running with cElementTree")
-      except ImportError:
-        try:
-          # normal ElementTree install
-          import elementtree.ElementTree as etree
-          print("running with ElementTree")
-        except ImportError:
-          print("Failed to import ElementTree from any known place")
+f = open('baidu.html','w')
+f.write(html)
+f.close();
 
 
-
+from lxml import etree
 
 if html=='' or  html=='None':
-    print "Can't get them html from http://menupalace.com"
+    print "Can't get them html from http://www.baidu.com"
     sys.exit()
 
 try:
@@ -149,7 +126,7 @@ try:
 except:
     f = open("log.txt","wa")
     f.write(html)
-    print("error to resolve the html http://menupalace.com")
+    print("error to resolve the html http://www.baidu.com")
     sys.exit()
 
 for node in nodes:
@@ -323,9 +300,6 @@ for node in nodes:
 
                              if debug and total>=10:
                                  break;
-                    
-
-                
 
 #Close database link
 conn.close()
