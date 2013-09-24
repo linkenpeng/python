@@ -10,17 +10,16 @@ foreach ($arr[1] as $v) {
     $str .= 'array("' . $tmp[0] . '", "' . $tmp[1] . '"),' . "\n";
 }
 $str .= ');';
-eval('$deny_ip=' . $str);
+eval('$china_ip=' . $str);
 
-$i = $j = 0;
-foreach($deny_ip as $val) {
+$j = 0;
+foreach($china_ip as $val) {
 	$startip = ip2int($val[0]);
 	$endip = ip2int($val[1]);
 	for($i = $startip; $i<=$endip; $i++) {
 		$ip = int2ip($i);
 		sendVote($ip, $voteid);
 	}
-	$i++;
 }
 
 //2717
