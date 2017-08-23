@@ -147,7 +147,7 @@ def download(url, filepath = None,
             end = (i + 1) * block_size - 1
             if i == block_count - 1:
                 # 最后一个加上余量
-                end = (i + 1) * block_size + remain
+                end += remain
             #线程信息需要下载时更新，用数组表示
             blocks.append([start, offset, end]) 
  
