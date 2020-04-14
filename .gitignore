@@ -1,0 +1,8 @@
+.project
+.classpath
+
+.settings/
+.clover/
+target/
+.idea/
+.svn/
