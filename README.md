@@ -6,5 +6,7 @@
 Requirements
 ```
 pip install requests
-pip install urllib3
+pip install lxml
+pip install beautifulsoup4
+pip install pymongo
 ```
