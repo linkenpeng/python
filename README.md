@@ -9,4 +9,5 @@ pip install requests
 pip install lxml
 pip install beautifulsoup4
 pip install pymongo
+pip install redis
 ```
