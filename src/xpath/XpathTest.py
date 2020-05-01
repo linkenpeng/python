@@ -31,6 +31,7 @@ Beautiful Soup4是一个从网页中提取数据的工具，它入门很容易�
 from multiprocessing.dummy import Pool
 import requests
 import time
+import re
 from bs4 import BeautifulSoup
 
 from lxml import etree
@@ -38,7 +39,7 @@ from lxml import etree
 
 def query(url):
     response = requests.get(url)
-    html_str = response.content.decode()
+    html_str = response.content.decode('gb2312')
     return html_str
 
 
@@ -91,6 +92,20 @@ def test_soup():
     end = time.time()
     print(f'soup解析网页耗时：{end - start}')
 
+def get_content():
+    html_str = get_html('http://www.sundxs.com/mingyanyulu/9410.html')
+    selector = etree.HTML(html_str)
+    content = selector.xpath('//div[@class="content"]/p/text()')
+
+    content_list = []
+    f = open('content.txt','w');
+    for each in content:
+        c = (re.sub('\d+[、.]','', each.strip()))
+        if c != '':
+            content_list.append(c)
+            f.writelines(c + '\n')
+    f.close()
+
+
 if __name__ == '__main__':
-    test_xpath()
-    test_soup()
+    get_content()
