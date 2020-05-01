@@ -32,6 +32,7 @@ from multiprocessing.dummy import Pool
 import requests
 import time
 import re
+import json
 from bs4 import BeautifulSoup
 
 from lxml import etree
@@ -98,14 +99,22 @@ def get_content():
     content = selector.xpath('//div[@class="content"]/p/text()')
 
     content_list = []
-    f = open('content.txt','w');
+    f = open('content.txt','w')
+    i = 6
     for each in content:
         c = (re.sub('\d+[、.]','', each.strip()))
         if c != '':
-            content_list.append(c)
+            item = {}
+            item['id'] = i
+            item['note'] = c
+            content_list.append(item)
             f.writelines(c + '\n')
+            i += 1
     f.close()
 
+    str_json=json.dumps(content_list,indent=2, ensure_ascii=False)
+    with open('content.json','w') as f:
+        f.write(str_json)
 
 if __name__ == '__main__':
     get_content()
