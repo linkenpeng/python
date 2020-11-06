@@ -137,4 +137,4 @@ def get_content():
         f.write(str_json)
 
 if __name__ == '__main__':
-    test_soup()
+    test_get_dianping()
