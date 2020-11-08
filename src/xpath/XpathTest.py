@@ -47,12 +47,27 @@ USER_AGENT_LIST = [
     "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/536.5 (KHTML, like Gecko) Chrome/19.0.1084.9 Safari/536.5"
 ]
 
+cookies = {
+    'huashengju': 'MEIQIA_TRACK_ID=1dS6pSPhWfyVBCY2eTKnjXLlBTK; huashengju_login_name=15876505396; kanbanGuider=kanban-guide; PHPSESSID=d3juc14t72jn858sbmcqnb3hem; huashengju_auth=9104D8KMy2m2gJQFN8oHLOlfSP9q9VVEHi0%2FUvlg3N8Ty4WYxIuHa8t%2FNtYnPLjEOomflinoUkMdz%2F%2B%2F4X7YCFlVefpZ%2F0I; Hm_lvt_f8aa0298cc7d1c9ec6b2b1195f234ed8=1604761056; MEIQIA_VISIT_ID=1k0W4d1e9Qor8FxMGHAtEjiLxV2; huashengju_user_auth=a368HcJ6ORDrEOrqs%2F0wFOP8e7IkeX43saZca8ZYdKRtMB0HINA%2BEUXHsOcYnbOPpeaoZROP%2BQaHv5ZUX8Opt2Rt4LjWTd5N%2By3JJYM; Hm_lpvt_f8aa0298cc7d1c9ec6b2b1195f234ed8=1604839989',
+    'zhihu': ''
+}
+
+headers = {
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+    'Accept-Encoding':'gzip, deflate, br',
+    'Accept-Language':'zh-CN,zh;q=0.9,en;q=0.8,sq;q=0.7,zh-TW;q=0.6',
+    'Cache-Control':'max-age=0',
+    'Connection':'keep-alive',
+    #'DNT':'1',
+    'Upgrade-Insecure-Requests':'1',
+    'Host':'www.huashengju.com',
+    'Referer':'https://www.huashengju.com/user-login.html',
+    'User-Agent':'{0}'.format(random.sample(USER_AGENT_LIST, 1)[0]),
+    'Cookie':cookies['huashengju']
+}
+
 def query(url):
-    headers = {
-        'User-Agent':'{0}'.format(random.sample(USER_AGENT_LIST, 1)[0]),
-        'Cookie':'_lxsdk_cuid=17348c37c03c8-0b28af5ab696d4-31607402-13c680-17348c37c04c8; _lxsdk=17348c37c03c8-0b28af5ab696d4-31607402-13c680-17348c37c04c8; _hc.v=fde59df5-96b8-4189-16ae-d379b611b3c0.1594653638; fspop=test; cy=208; cye=foshan; _lx_utm=utm_source%3DBaidu%26utm_medium%3Dorganic; Hm_lvt_602b80cf8079ae6591966cc70a3940e7=1604499765; s_ViewType=10; dplet=033cb8523f079f2b3ac97cb59dc90348; dper=77508b93808b6c954dc0f1f88edbe977bb33bf4e9dc37b48a184fe67a4272f70cd186fb83669e91d1369c0031cbcdcaf255e567c0ff4f9ee4ad6521aa12fc6a915ecb87962e1da6618affc0b5fd063b9b30146c5daac0c8de8670a5910c51adb; ll=7fd06e815b796be3df069dec7836c3df; ua=%E8%80%81M%E5%93%A5; ctu=358c3bab65bdc03610c90ac12957311f187d89097d155d3ce9cfd474d0aea169; uamo=15876505396; Hm_lpvt_602b80cf8079ae6591966cc70a3940e7=1604500153; _lxsdk_s=17593a37650-b0e-d8c-1d8%7C%7C356'
-    }
-    response = requests.get(url, headers)
+    response = requests.get(url, headers = headers)
     html_str = response.content.decode('utf-8')
     return html_str
 
@@ -105,7 +120,7 @@ def test_soup():
     end = time.time()
     print(f'soup解析网页耗时：{end - start}')
 
-def test_get_dianping():
+def get_dianping():
     html_str = get_html('http://www.dianping.com/shop/EZcDMs9sSDQy7PeF')
     print(html_str)
     selector = etree.HTML(html_str)
@@ -136,5 +151,18 @@ def get_content():
     with open('content.json','w') as f:
         f.write(str_json)
 
+def get_zhihu():
+    html_str = get_html('https://www.zhihu.com/')
+    print(html_str)
+    selector = etree.HTML(html_str)
+    content = selector.xpath('//h2[@id="HotItem-title"]/text()')
+    for each in content:
+        print(each)
+
+def test_cookie():
+    session = requests.session()
+    html_str = session.get('https://www.huashengju.com/designer-init.html', headers=headers, verify=False)
+    print(html_str.content.decode())
+
 if __name__ == '__main__':
-    test_get_dianping()
+    test_cookie()
