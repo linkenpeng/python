@@ -9,7 +9,7 @@ def function(arg1="", arg2=""):
 	print("arg1:{0}".format(arg1))
 	print("arg2:{0}".format(arg2))
 
-#带任意数量参数的函数
+
 def foo(*args):
 	numargs = len(args)
 	print("Number of arguments:{0}".format(numargs))
@@ -17,11 +17,11 @@ def foo(*args):
 		print("Argument {0} is : {1}".format(i,x)
 	'''
 
-#使用Glob()查找文件
+
 def multiple_file_types(*patterns):
     return it.chain.from_iterable(glob.glob(pattern) for pattern in patterns)
 
-#调试
+
 logging.basicConfig(level=logging.INFO,
     format='%(asctime)s %(levelname)-8s %(filename)s:%(lineno)-4d: %(message)s',
     datefmt='%m-%d %H:%M',
@@ -38,7 +38,7 @@ def testDebug():
 def uniqueId():
 	key='1'
 	data='a'
-	print hmac.new(key, data, hashlib.sha256).hexdigest()
+	print(hmac.new(key, data, hashlib.sha256).hexdigest())
 	  
 	m = hashlib.sha1()
 	m.update("The quick brown fox jumps over the lazy dog")
@@ -46,18 +46,18 @@ def uniqueId():
 
 def jsonTest():
 	variable = ['hello', 42, [1,'two'],'apple']
-	print "Original {0} - {1}".format(variable,type(variable))
+	print("Original {0} - {1}".format(variable,type(variable)))
 	  
 	# encoding
 	encode = json.dumps(variable)
-	print "Encoded {0} - {1}".format(encode,type(encode))
+	print("Encoded {0} - {1}".format(encode,type(encode)))
 	  
 	#deccoding
 	decoded = json.loads(encode)
-	print "Decoded {0} - {1}".format(decoded,type(decoded))
+	print("Decoded {0} - {1}".format(decoded,type(decoded)))
 	
 def zlibTest():
-	string =  """   Lorem ipsum dolor sit amet, consectetur
+	string =  """  Lorem ipsum dolor sit amet, consectetur
                 adipiscing elit. Nunc ut elit id mi ultricies
                 adipiscing. Nulla facilisi. Praesent pulvinar,
                 sapien vel feugiat vestibulum, nulla dui pretium orci,
@@ -74,13 +74,13 @@ def zlibTest():
                 eu non enim. Ut malesuada lacus eu nulla bibendum
                 id euismod urna sodales. """
   
-	print "Original Size: {0}".format(len(string))
+	print("Original Size: {0}".format(len(string)))
 	  
 	compressed = zlib.compress(string)
-	print "Compressed Size: {0}".format(len(compressed))
+	print("Compressed Size: {0}".format(len(compressed)))
 	  
 	decompressed = zlib.decompress(compressed)
-	print "Decompressed Size: {0}".format(len(decompressed))
+	print("Decompressed Size: {0}".format(len(decompressed)))
 
 def microtime(get_as_float = False) :
     if get_as_float:
@@ -90,7 +90,7 @@ def microtime(get_as_float = False) :
 
 def shutdown():
     global start_time
-    print "Execution took: {0} seconds".format(start_time)
+    print("Execution took: {0} seconds".format(start_time))
 
 if __name__ == '__main__': 
 	function("hello", "world")
@@ -103,17 +103,15 @@ if __name__ == '__main__':
 		#print os.path.realpath(filename)
 	
 	testDebug()
-	
-	#生成唯一id
+
 	#result = uuid.uuid1()
 	result = uniqueId()
-	print result
+	print(result)
 	
 	jsonTest()
 	
 	zlibTest()
-	
-	#注册Shutdown函数
+
 	start_time = microtime(False)
 	atexit.register(start_time)
 	atexit.register(shutdown)

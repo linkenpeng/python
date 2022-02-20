@@ -3,9 +3,9 @@
 # by redice 2010.11.05
 
 import codecs
-import sys  
-import urllib2
-from urllib2 import URLError, HTTPError
+import sys
+import urllib.request
+import urllib.error
 import zlib
 import sqlite3
 
@@ -50,23 +50,23 @@ def gethtml(url):
             # find the target
             return deserialize(str(row[1]))
 
-        response = urllib2.urlopen(url)
+        response = urllib.request.urlopen(url)
         result = response.read()
         # insert into the html_cache.db
         curs.execute("insert into htmls values(?,?,?);", (url,serialize(result),len(result)))
         conn.commit()
         
-        print "saved %s into html_cache.db" % (url)
+        print("saved %s into html_cache.db" % (url))
         
         return  result
-    except URLError, e:
+    except urllib.request.URLError as e:
         if hasattr(e, 'reason'):
-            print 'Failed to reach a server.'
-            print 'Reason: ', e.reason
+            print('Failed to reach a server.')
+            print('Reason: ', e.reason)
             return 'None'
         elif hasattr(e, 'code'):
-            print 'The server couldn\'t fulfill the request.'
-            print 'Error code: ', e.code
+            print('The server couldn\'t fulfill the request.')
+            print('Error code: ', e.code)
             return 'None'
     #except:
         #return 'None'
@@ -77,7 +77,7 @@ def gethtml(url):
 import re
 
 #Fetch the all string matched. Return a list.
-def regexmatch(rule,str):
+def regexmatch(rule, str):
     '''Fetch the all string matched. Return a list.'''
     p = re.compile(rule)
     return p.findall(str)
@@ -106,7 +106,7 @@ total = 0;
 debug = 0
 
 # Fetch www.baidu.com's html
-print 'Fetching html from http://www.baidu.com ...'
+print('Fetching html from http://www.baidu.com ...')
 html = gethtml('http://www.baidu.com/s?ie=utf-8&bs=%E7%BE%8E%E5%AE%B9&f=8&rsv_bp=1&wd=%E7%BE%8E%E5%AE%B9&inputT=0')
 
 f = open('baidu.html','w')
@@ -117,7 +117,7 @@ f.close();
 from lxml import etree
 
 if html=='' or  html=='None':
-    print "Can't get them html from http://www.baidu.com"
+    print("Can't get them html from http://www.baidu.com")
     sys.exit()
 
 try:
@@ -158,7 +158,7 @@ for node in nodes:
         #print 'Fetching html from '+ link +' ...'
         html = gethtml(link)
         if html=='' or html == 'None':
-            print "Can't get them html from " + link
+            print("Can't get them html from " + link)
             continue
         
         try:
@@ -184,10 +184,10 @@ for node in nodes:
                             
                 link = prelink + "restaurants/" + sl.get("href")
 
-                print 'Fetching html from '+ link +' ...'                
+                print('Fetching html from '+ link +' ...')
                 html = gethtml(link)
                 if  html=='' or html == 'None':
-                    print "Can't get them html from " + link
+                    print("Can't get them html from " + link)
                     continue
                 
                 try:
@@ -324,5 +324,5 @@ for  item in dining_db:
 cf.close()
 
 
-print 'The result has been saved into scraping_result.csv!'
+print('The result has been saved into scraping_result.csv!')
 

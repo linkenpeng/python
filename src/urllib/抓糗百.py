@@ -6,8 +6,7 @@ from lxml import etree
 import redis
 import sys
 import re
-import urllib
-import urllib2
+import urllib.request
 import json
 import hashlib
 import random
@@ -36,8 +35,8 @@ def sendData(args):
     args['src'] = 20
 
     data = urllib.urlencode(args)
-    req = urllib2.Request(url, data)
-    response = urllib2.urlopen(req)
+    req = urllib.request.Request(url, data)
+    response = urllib.request.urlopen(req)
     r_data = response.read()
     json_data = json.loads(r_data)
     return json_data
@@ -72,9 +71,9 @@ for i in val_ids.keys():
 
     if qb('#' + a).find('div.thumb'):
         url = qb('#' + a).find('div.thumb img').attr('src')
-        print 'download img from:' + url
+        print('download img from:' + url)
         ext = os.path.splitext(url)[1]
-        print 'img ext: ' + ext
+        print('img ext: ' + ext)
         path = getHashPath()
         full_path = img_base_path + path
         if not os.path.exists(full_path):
@@ -83,12 +82,12 @@ for i in val_ids.keys():
         ab_path = full_path + filename
         urllib.urlretrieve(url, ab_path)
         args['pic'] = '/weibo/' + path + filename
-        print 'img:' + url + ' save file:' + ab_path
-    print args
+        print('img:' + url + ' save file:' + ab_path)
+    print(args)
     ret = sendData(args)
     if not int(ret['errcode']):
         del val_ids[i]    
-    print args['content']
+    print(args['content'])
     count += 1
     if count > 5:
         time.sleep(61)

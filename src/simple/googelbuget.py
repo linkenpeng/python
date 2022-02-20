@@ -6,7 +6,7 @@ email:nickylans@163.com
 '''
 import re
 import os
-import urllib2, urllib
+import urllib.request
 import cookielib
 from md5 import md5
 import pycurl
@@ -67,9 +67,9 @@ class GoogleLogin(object):
         cont = self.postToGoogle(postInfo)
         
         if cont.find("captcha-msg") == -1 and cont.find("errormsg_0_Passwd") == -1:
-            print "%s login ok" % self.username
+            print("%s login ok" % self.username)
             extId = self.getExtId(cont)
-            print "extId=",extId
+            print("extId=",extId)
             if extId and int(extId) > 5:
                
                 updateExtId(self.username, extId)
@@ -77,7 +77,7 @@ class GoogleLogin(object):
             #提取extid
             return True #登陆成功
         else:
-            print 'can\'t login account %s' % self.username
+            print('can\'t login account %s' % self.username)
             insertLog(self.username, 0)
             #raise Exception("Can't login in %s" % self.username)
             return False
@@ -181,9 +181,9 @@ class GoogleLogin(object):
             flag = 1
             refUrl = refUrl
             pUrl = postUrl
-            print postData
-            print pUrl
-            print refUrl
+            print(postData)
+            print(pUrl)
+            print(refUrl)
             #exit()
         cookieFile = self.cachePath + GoogleLogin.getFileMd5(self.username)
         html = StringIO.StringIO()
@@ -252,18 +252,18 @@ def getBalance(accountInfo):
     try:
         password = passportDecrypt(accountInfo['password'])
     except:
-        print 'en fault!'
+        print('en fault!')
         return
-    print username
+    print(username)
     try:
         infos = GoogleLogin(username, password).getBugetAndCost()
     except:
-        print 'had error!'
+        print('had error!')
         traceback.print_exc()
         pass
         return
     if not infos:
-        print 'not balance'
+        print('not balance')
         return
     balance = infos[1]
     if balance:
@@ -274,7 +274,7 @@ def testAccount():
     db = dbconn()
     sql = "select a.id, a.username,a.password FROM topapilog.google_simlogin_log b left join  topapi.google_sms_account a ON a.username = b.username where b.result=0"
     rs = db.fetchall(sql)
-    print len(rs)
+    print(len(rs))
 
 if __name__ == '__main__':
 
