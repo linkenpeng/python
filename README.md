@@ -17,4 +17,5 @@ pip install uiautomator
 pip install opencv-python
 pip install pyquery
 pip install mysql
+pip install hashlib
 ```
