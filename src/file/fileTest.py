@@ -1,6 +1,8 @@
 import csv
 import urllib3
 import os
+import jieba.posseg as posseg
+import pandas as pd
 
 def test():
     with open('test.csv', 'r') as f:
@@ -24,6 +26,21 @@ def test_csv():
         for row in reader:
             print(row)
 
+
+def test_fc():
+    content = "李明喜欢韩梅梅，他俩早恋了，我也喜欢韩梅梅"
+
+    #with open("test.csv") as fin:
+    #    content = fin.read()
+
+    words = []
+    for word, flag in posseg.cut(content):
+        if(flag == "nr"):
+            words.append(word)
+
+    list = pd.Series(words).value_counts()[:20]
+    print(list)
+
 def test_urllib3():
     print(os.getcwd())
     response = urllib3.Request('http://picm.photophoto.cn/015/037/003/0370030333.jpg');
@@ -33,4 +50,4 @@ def test_urllib3():
     f.close()
 
 if __name__ == '__main__':
-    test_csv()
+    test_fc()
