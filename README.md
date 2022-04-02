@@ -18,5 +18,6 @@ pip install opencv-python
 pip install pyquery
 pip install mysql
 pip install jieba
+pip install pandas
 pip install hashlib
 ```
