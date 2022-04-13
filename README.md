@@ -5,19 +5,12 @@
 
 python -m pip install --upgrade pip
 
-
 Requirements
-```
-pip install requests
-pip install lxml
-pip install beautifulsoup4
-pip install pymongo
-pip install redis
-pip install uiautomator
-pip install opencv-python
-pip install pyquery
-pip install mysql
-pip install jieba
-pip install pandas
-pip install hashlib
+
+```python
+import os
+libs = ["requests", "jieba", "mysql", "redis", "lxml", "beautifulsoup4"
+,"pymongo", "uiautomator", "opencv-python", "pyquery", "pandas", "hashlib"]
+for lib in libs:
+    os.system("pip install " + lib)
 ```
