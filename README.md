@@ -7,6 +7,11 @@ python -m pip install --upgrade pip
 
 Requirements
 
+### Some Useful site:
+- https://www.python.org/
+- https://pypi.org/
+- https://python123.io/
+
 ```python
 import os
 libs = ["requests", "jieba", "mysql", "redis", "lxml", "beautifulsoup4"
