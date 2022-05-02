@@ -1,3 +1,4 @@
+# 温度转换器
 TempStr = input("请输入：")
 if TempStr[-1] in ['F', 'f']:
     C = (eval(TempStr[0:-1]) - 32)/1.8

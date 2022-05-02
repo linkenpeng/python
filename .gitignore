@@ -7,3 +7,6 @@ target/
 .idea/
 .svn/
 /python.iml
+bin
+lib
+include

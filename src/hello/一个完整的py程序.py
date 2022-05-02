@@ -1,23 +1,23 @@
-# coding=gb2312
-#/usr/bin/env python (1)ÆğÊ¼ĞĞ
+# coding=utf-8
+#/usr/bin/env python (1)èµ·å§‹è¡Œ
 
-"this is a test module" # (2)Ä£¿éÎÄµµ
+"this is a test module" # (2)æ¨¡å—æ–‡æ¡£
 
-import sys #(3) Ä£¿éµ¼Èë
+import sys #(3) æ¨¡å—å¯¼å…¥
 import os
 
-debug = True #(4) (È«¾Ö)±äÁ¿¶¨Òå
+debug = True #(4) (å…¨å±€)å˜é‡å®šä¹‰
 
-class FooClass (object): #(5) Àà¶¨Òå(ÈôÓĞ)
+class FooClass (object): #(5) ç±»å®šä¹‰(è‹¥æœ‰)
     "Foo class"
     pass
 
-def test(): #(6)º¯Êı¶¨Òå(ÈôÓĞ)
+def test(): #(6)å‡½æ•°å®šä¹‰(è‹¥æœ‰)
     "test function"
     foo = FooClass()
     
     if debug:
         print('ran test()')
         
-if __name__ == '__main__': #(7) Ö÷³ÌĞò
+if __name__ == '__main__': #(7) ä¸»ç¨‹åº
     test()
