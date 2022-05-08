@@ -15,7 +15,18 @@ Requirements
 ```python
 import os
 libs = ["requests", "jieba", "mysql", "redis", "lxml", "beautifulsoup4"
-,"pymongo", "uiautomator", "opencv-python", "pyquery", "pandas", "hashlib"]
+,"pymongo", "uiautomator", "opencv-python", 
+"pyquery", "pandas", "hashlib","pyinstaller"]
 for lib in libs:
     os.system("pip install " + lib)
 ```
+
+### PyInstaller 
+1. -h 帮助
+2. --clean 清理打包过程中的临时文件
+3. -D, --onedir 默认值，生成dist文件夹
+4. -F, --onefile 在dist文件夹中生成独立的打包文件
+5. -i <图标文件名.ico> 指定打包程序使用的图标(icon)文件
+
+
+
