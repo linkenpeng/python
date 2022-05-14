@@ -1,7 +1,4 @@
 # -*- coding: GBK -*
-# Author: Seay
-# Blog :www.cnseay.com
-
 import os,sys
 
 def func_countfileline(filepath):

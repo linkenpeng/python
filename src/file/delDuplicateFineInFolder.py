@@ -1,4 +1,5 @@
-import hashlib  
+# 删除一个文件夹下面的重复文件
+import hashlib
 import os  
 from time import clock as now  
 def getmd5(filename):  
