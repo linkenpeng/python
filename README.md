@@ -11,12 +11,15 @@ Requirements
 - https://www.python.org/
 - https://pypi.org/
 - https://python123.io/
+- [Python Package Index](https://pypi.org)
+- [Anaconda](https://www.continuum.io)
+- http://www.lfd.uci.edu/~gohlke/pythonlibs/
 
 ```python
 import os
 libs = ["requests", "jieba", "mysql", "redis", "lxml", "beautifulsoup4"
 ,"pymongo", "uiautomator", "opencv-python", 
-"pyquery", "pandas", "hashlib","pyinstaller"]
+"pyquery", "pandas", "hashlib","pyinstaller", "wordcloud"]
 for lib in libs:
     os.system("pip install " + lib)
 ```
