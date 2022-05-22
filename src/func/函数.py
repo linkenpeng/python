@@ -1,6 +1,39 @@
 # coding=gb2312
+import common as cm
+import pdb
 
 print('定义函数')
+
+'''
+变量的作用域
+在Python中，只有模块（module)、类(class)、以及函数(def、lambda)才会引入新的作用域
+其他的代码块（如if/elif/else/, for/while等)是不会引入新的作用域的
+'''
+x = int(2.0) # 内建作用域
+g_count = 0 # 全局作用域
+def outer():
+    print(x)
+    global g_count
+    print(g_count)
+    o_count = 1 # 闭包函数外的函数中
+    g_count = g_count + 1
+    print("outer g_count:", g_count)
+    print("outer o_count:", o_count)
+    def inner():
+        i_count = 2 # 局部作用域
+        pdb.set_trace()
+        nonlocal o_count # 可以让外部变量同步更新
+        o_count = 10
+        print("inner o_count: ", o_count)
+        print("inner x: ", x)
+        print("inner g_count", g_count)
+    inner()
+    print("outer o_count:", o_count)
+
+
+outer()
+print("global g_count:", g_count)
+print("-" * 30)
 
 def addMe2Me(x):
     'apply + operation to argument'
@@ -58,5 +91,6 @@ print(fact(10, 2))
 print(fact(10))
 print(fact1(10, 2))
 
+cm.function("a", "b")
 
 
