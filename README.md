@@ -14,6 +14,7 @@ Requirements
 - [Python Package Index](https://pypi.org)
 - [Anaconda](https://www.continuum.io)
 - http://www.lfd.uci.edu/~gohlke/pythonlibs/
+- https://www.runoob.com/matplotlib/matplotlib-tutorial.html
 
 ```python
 import os
