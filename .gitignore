@@ -8,5 +8,5 @@ target/
 .svn/
 /python.iml
 bin
-lib
+venv
 include
