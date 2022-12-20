@@ -61,8 +61,9 @@ def dealThreeKingDoms():
         print("{0:<10}{1:>5}".format(word, count))
         top_list.append(word)
 
+    # mac font_path="/System/Library/Fonts/PingFang.ttc",
     w = wordcloud.WordCloud(background_color="white",
-                            font_path="/System/Library/Fonts/PingFang.ttc",
+                            font_path="C:/Windows/Fonts/STKAITI.TTF",
                             width=1000, height=700)
     w.generate(" ".join(top_list))
     w.to_file("threekongsdoms.png")
@@ -87,14 +88,14 @@ def dealZhongGuo(fileName):
         top_list.append(word)
 
     mask = imageio.imread_v2("fivestar.jpeg")
+    # mac font_path="/System/Library/Fonts/PingFang.ttc",
     w = wordcloud.WordCloud(background_color="white",
-                            font_path="/System/Library/Fonts/PingFang.ttc",
-                            width=1000, height=700, max_words=15, mask=mask)
+                            font_path="C:/Windows/Fonts/STKAITI.TTF",
+                            width=1000, height=700, max_words=15)
     w.generate(" ".join(top_list))
     w.to_file(fileName + ".png")
 
-
-dealZhongGuo("新时代中国特色社会主义")
-dealZhongGuo("关于实施乡村振兴战略的意见")
+dealZhongGuo("项目复盘")
+dealZhongGuo("风险管理")
 
 
