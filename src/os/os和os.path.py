@@ -2,8 +2,11 @@
 #/usr/bin/env python (1)ÆðÊ¼ÐÐ
 
 import os
+import sys
 
 def printOs():
+    print(sys.platform)
+    print(os.name)
     print(os.sep)
     print(os.linesep)
     print(os.pathsep)
