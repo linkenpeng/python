@@ -113,4 +113,4 @@ def get_font_path():
     return font_path
 
 makeWordCloud("项目复盘", True, {"一些", "mmp", "积分","资格", "部分", "方式"})
-makeWordCloud("风险管理", True, {"同学","迁移"})
+makeWordCloud("风险管理", True, {"同学","迁移", "原来"})
