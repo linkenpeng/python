@@ -112,5 +112,5 @@ def get_font_path():
         font_path = "C:/Windows/Fonts/STKAITI.TTF"
     return font_path
 
-makeWordCloud("项目复盘", True, {"一些", "mmp", "积分","资格", "部分", "方式"})
-makeWordCloud("风险管理", True, {"同学","迁移", "原来"})
+makeWordCloud("项目复盘", True, {"一些", "mmp", "积分","资格", "部分", "方式", "没有", "导致"})
+makeWordCloud("风险管理", True, {"同学","迁移", "原来", "比较"})
