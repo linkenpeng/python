@@ -10,3 +10,4 @@ target/
 bin
 venv
 include
+src/library/jieba/*.png

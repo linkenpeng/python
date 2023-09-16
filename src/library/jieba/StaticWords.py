@@ -1,6 +1,7 @@
 import jieba
 import wordcloud
 import imageio
+import sys
 
 def getText(file):
     txt = open(file, "r", encoding="utf-8").read()
@@ -45,7 +46,7 @@ def dealThreeKingDoms():
         elif word == "玄德" or word == "玄德曰":
             rword = "刘备"
         elif word == "孟德" or word == "丞相":
-            rword = "操场"
+            rword = "曹操"
         else:
             rword = word
         counts[rword] = counts.get(rword, 0) + 1
@@ -62,13 +63,13 @@ def dealThreeKingDoms():
         top_list.append(word)
 
     w = wordcloud.WordCloud(background_color="white",
-                            font_path="/System/Library/Fonts/PingFang.ttc",
+                            font_path=get_font_path(),
                             width=1000, height=700)
     w.generate(" ".join(top_list))
     w.to_file("threekongsdoms.png")
 
-def dealZhongGuo(fileName):
-    # https://python123.io/resources/pye/threekingdoms.txt
+def makeWordCloud(fileName, outImage, excludes):
+    print("="*20 + fileName + "="*20)
     content = getText(fileName + ".txt")
     words = jieba.lcut(content)
     counts = {}
@@ -78,6 +79,11 @@ def dealZhongGuo(fileName):
         else:
             rword = word
         counts[rword] = counts.get(rword, 0) + 1
+
+    if excludes:
+        for word in excludes:
+            del counts[word]
+
     items = list(counts.items())
     items.sort(key=lambda x:x[1], reverse=True)
     top_list = []
@@ -86,15 +92,25 @@ def dealZhongGuo(fileName):
         print("{0:<10}{1:>5}".format(word, count))
         top_list.append(word)
 
-    mask = imageio.imread_v2("fivestar.jpeg")
-    w = wordcloud.WordCloud(background_color="white",
-                            font_path="/System/Library/Fonts/PingFang.ttc",
-                            width=1000, height=700, max_words=15, mask=mask)
-    w.generate(" ".join(top_list))
-    w.to_file(fileName + ".png")
+    if(outImage):
+        mask = imageio.imread_v2("fivestar.jpeg")
+        w = wordcloud.WordCloud(background_color="white",
+                                font_path=get_font_path(),
+                                width=1000, height=700, max_words=15)
+        w.generate(" ".join(top_list))
+        w.to_file(fileName + ".png")
 
+'''
+win32：表示 windows 系统
+linux：表示 linux 系统
+cygwin：表示 Windows/Cygwin 系统
+darwin：表示 macOS 系统
+'''
+def get_font_path():
+    font_path = "/System/Library/Fonts/PingFang.ttc"
+    if sys.platform == "win32":
+        font_path = "C:/Windows/Fonts/STKAITI.TTF"
+    return font_path
 
-dealZhongGuo("新时代中国特色社会主义")
-dealZhongGuo("关于实施乡村振兴战略的意见")
-
-
+makeWordCloud("项目复盘", True, {"一些", "mmp", "积分","资格", "部分", "方式", "没有", "导致"})
+makeWordCloud("风险管理", True, {"同学","迁移", "原来", "比较"})
