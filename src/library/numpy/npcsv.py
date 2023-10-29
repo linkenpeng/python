@@ -16,4 +16,26 @@ def readCSV():
     b = np.loadtxt("a.csv", dtype=np.int32, delimiter=',')
     print(b)
     
-readCSV()
+def saveFile(bn = True):    
+    a = np.arange(100).reshape((5,10,2))
+    if(bn): 
+        a.tofile("b.bat", format='%d')
+    else:
+        a.tofile("b.bat", sep=',', format='%d')
+
+def readFile(bn = True):   
+    if(bn): 
+        b = np.fromfile("b.bat", dtype=np.int32)
+    else:
+        b = np.fromfile("b.bat", dtype=np.int32, sep=",")
+    print(b)
+    print(b.reshape(5,10,2))
+
+def npySaveLoad():   
+    a = np.arange(100).reshape((5,10,2))
+    np.save("a.npy", a)
+    b = np.load("a.npy")
+    print(b)
+
+    
+npySaveLoad()
