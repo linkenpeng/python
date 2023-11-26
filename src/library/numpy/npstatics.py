@@ -19,7 +19,9 @@ def npSum():
     print(m1)
     avg = np.average(a, axis=0,weights=[10,5,1])
     print(avg)
+    # 标准差
     print(np.std(a))
+    # 方差
     print(np.var(a))
 
 def npMax():
