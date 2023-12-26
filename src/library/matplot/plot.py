@@ -3,6 +3,8 @@
 """
 Created on Sun Nov 26 21:40:03 2023
 
+[matplotlib官方网站](https://matplotlib.org/stable/plot_types/index.html)
+
 | 函数 | 说明 |
 | ------- | --- |
 | plt.plot | 坐标图 |
@@ -104,10 +106,87 @@ def pieTest():
     explode = (0, 0.1, 0, 0)
     plt.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%',
             shadow=False, startangle=90)
+    plt.axis('equal')
     plt.show()
 
 
-pieTest()
+
+def pie2():
+    plt.style.use('_mpl-gallery-nogrid')
+    
+    
+    # make data
+    x = [1, 2, 3, 4]
+    colors = plt.get_cmap('Blues')(np.linspace(0.2, 0.7, len(x)))
+    
+    # plot
+    fig, ax = plt.subplots()
+    ax.pie(x, colors=colors, radius=3, center=(4, 4),
+           wedgeprops={"linewidth": 1, "edgecolor": "white"}, frame=True)
+    
+    ax.set(xlim=(0, 8), xticks=np.arange(1, 8),
+           ylim=(0, 8), yticks=np.arange(1, 8))
+    
+    plt.axis('equal')
+    
+    plt.show()
+
+def histTest():
+    plt.style.use('_mpl-gallery')
+
+    # make data
+    np.random.seed(1)
+    x = 4 + np.random.normal(0, 2, 200)
+    
+    # plot:
+    fig, ax = plt.subplots()
+    
+    ax.hist(x, bins=20, linewidth=0.5, edgecolor="white")
+    
+    ax.set(xlim=(0, 8), xticks=np.arange(1, 8),
+           ylim=(0, 56), yticks=np.linspace(0, 56, 9))
+    
+    plt.show()
+
+# 极坐标
+def polarTest():
+    N = 10
+    theta = np.linspace(0.0, 2 * np.pi, N, endpoint=False)
+    radii = 10 * np.random.rand(N)
+    width = np.pi / 2 * np.random.rand(N)
+    
+    ax = plt.subplot(111, projection='polar')
+    bars = ax.bar(theta, radii, width=width, bottom=0.0)
+    
+    for r, bar in zip(radii, bars):
+        bar.set_facecolr(plt.cm.viridis(r / 10.))
+        bar.set_alpha(0.5)
+    
+    plt.show()
+
+def scatterTest():
+    plt.style.use('_mpl-gallery')
+
+    # make the data
+    np.random.seed(3)
+    x = 4 + np.random.normal(0, 2, 24)
+    y = 4 + np.random.normal(0, 2, len(x))
+    # size and color:
+    sizes = np.random.uniform(15, 80, len(x))
+    colors = np.random.uniform(15, 80, len(x))
+    
+    # plot
+    fig, ax = plt.subplots()
+    
+    ax.scatter(x, y, s=sizes, c=colors, vmin=0, vmax=100)
+    
+    ax.set(xlim=(0, 8), xticks=np.arange(1, 8),
+           ylim=(0, 8), yticks=np.arange(1, 8))
+    
+    plt.show()
+
+
+scatterTest()
 
 
 
