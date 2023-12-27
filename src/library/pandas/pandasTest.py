@@ -8,6 +8,7 @@ Created on Tue Dec 26 10:52:30 2023
 
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 
 class SeriesOperate(object):
     def createSeries(self):
@@ -149,6 +150,9 @@ class DataFrameOperate(object):
         print(hprice)
         print(m2)
         print(hprice.corr(m2))
+        
+        plt.plot(hprice, 'go-', m2, 'ro-')
+        plt.show()
     
 dfo = DataFrameOperate('Myron')
 dfo.analysis()
