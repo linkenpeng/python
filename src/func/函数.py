@@ -2,27 +2,27 @@
 import common as cm
 import pdb
 
-print('¶¨Òåº¯Êı')
+print('å®šä¹‰å‡½æ•°')
 
 '''
-±äÁ¿µÄ×÷ÓÃÓò
-ÔÚPythonÖĞ£¬Ö»ÓĞÄ£¿é£¨module)¡¢Àà(class)¡¢ÒÔ¼°º¯Êı(def¡¢lambda)²Å»áÒıÈëĞÂµÄ×÷ÓÃÓò
-ÆäËûµÄ´úÂë¿é£¨Èçif/elif/else/, for/whileµÈ)ÊÇ²»»áÒıÈëĞÂµÄ×÷ÓÃÓòµÄ
+å˜é‡çš„ä½œç”¨åŸŸ
+åœ¨Pythonä¸­ï¼Œåªæœ‰æ¨¡å—ï¼ˆmodule)ã€ç±»(class)ã€ä»¥åŠå‡½æ•°(defã€lambda)æ‰ä¼šå¼•å…¥æ–°çš„ä½œç”¨åŸŸ
+å…¶ä»–çš„ä»£ç å—ï¼ˆå¦‚if/elif/else/, for/whileç­‰)æ˜¯ä¸ä¼šå¼•å…¥æ–°çš„ä½œç”¨åŸŸçš„
 '''
-x = int(2.0) # ÄÚ½¨×÷ÓÃÓò
-g_count = 0 # È«¾Ö×÷ÓÃÓò
+x = int(2.0) # å†…å»ºä½œç”¨åŸŸ
+g_count = 0 # å…¨å±€ä½œç”¨åŸŸ
 def outer():
     print(x)
     global g_count
     print(g_count)
-    o_count = 1 # ±Õ°üº¯ÊıÍâµÄº¯ÊıÖĞ
+    o_count = 1 # é—­åŒ…å‡½æ•°å¤–çš„å‡½æ•°ä¸­
     g_count = g_count + 1
     print("outer g_count:", g_count)
     print("outer o_count:", o_count)
     def inner():
-        i_count = 2 # ¾Ö²¿×÷ÓÃÓò
+        i_count = 2 # å±€éƒ¨ä½œç”¨åŸŸ
         pdb.set_trace()
-        nonlocal o_count # ¿ÉÒÔÈÃÍâ²¿±äÁ¿Í¬²½¸üĞÂ
+        nonlocal o_count # å¯ä»¥è®©å¤–éƒ¨å˜é‡åŒæ­¥æ›´æ–°
         o_count = 10
         print("inner o_count: ", o_count)
         print("inner x: ", x)
@@ -30,16 +30,17 @@ def outer():
     inner()
     print("outer o_count:", o_count)
 
-
+'''
 outer()
 print("global g_count:", g_count)
 print("-" * 30)
+'''
 
 def addMe2Me(x):
     'apply + operation to argument'
     return (x + x)
 
-# *b ¿É±ä²ÎÊı
+# *b å¯å˜å‚æ•°
 def fact(n, *b):
     s = 1
     for i in range(1, n + 1):
@@ -56,7 +57,7 @@ def fact1(n, m = 1):
 
 n, s = 10, 100
 def fact2(n):
-    # È«¾Ö±äÁ¿
+    # å…¨å±€å˜é‡
     global s
     for i in range(1, n + 1):
         s *= i
@@ -64,10 +65,11 @@ def fact2(n):
 
 list = [1,2]
 def fact3(n):
-    # È«¾Ö±äÁ¿
+    # å…¨å±€å˜é‡
     list.append(3)
     return list
 
+'''
 print(fact2(n), s)
 print(fact3(n), list)
 
@@ -77,14 +79,16 @@ print(addMe2Me('Python'))
 print(addMe2Me([-1, 'abc']))
 
 print()
-print('º¯ÊıµÄÄ¬ÈÏ²ÎÊı')
+print('å‡½æ•°çš„é»˜è®¤å‚æ•°')
+'''
 
 def foo(debug = True):
     'determine if in debug mode with default argument'
     if debug:
         print('in debug mode')
     print('done')
-    
+
+'''    
 foo()
 
 print(fact(10, 2))
@@ -92,5 +96,23 @@ print(fact(10))
 print(fact1(10, 2))
 
 cm.function("a", "b")
+
+print(50*'-')
+'''
+
+def parrot(voltage, state='a stiff', action='voom', type='Norwegian Blue'):
+    print("-- This parrot wouldn't", action, end=' ')
+    print("if you put", voltage, "volts through it.")
+    print("-- Lovely plumage, the", type)
+    print("-- It's", state, "!")
+    
+    
+parrot(1000)                                          # 1 positional argument
+parrot(voltage=1000)                                  # 1 keyword argument
+parrot(voltage=1000000, action='VOOOOOM')             # 2 keyword arguments
+parrot(action='VOOOOOM', voltage=1000000)             # 2 keyword arguments
+parrot('a million', 'bereft of life', 'jump')         # 3 positional arguments
+parrot('a thousand', state='pushing up the daisies')  # 1 positional, 1 keyword    
+    
 
 
