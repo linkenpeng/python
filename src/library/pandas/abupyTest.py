@@ -1,3 +1,6 @@
+'''
+pip install abupy
+'''
 import numpy as np
 import pandas as pd
 from abupy import ABuMarketDrawing
