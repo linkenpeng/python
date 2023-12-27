@@ -52,24 +52,25 @@ class DataFrameOperate(object):
         print(50*'-')
     
     def create(self, method = 1):
-        if(method == 1):
-            return pd.DataFrame(np.arange(15).reshape(3, 5))
-        elif(method == 2):
-            dt = {'one':pd.Series([9, 8, 7, 6], index=['a','b','c','d']),
-                  'two':pd.Series({'a':9,'b':8})}
-            b = pd.DataFrame(dt)
-            return b
-        elif(method == 3):
-            c = pd.DataFrame(dt, index=['b','c','d'], columns=['two','three'])
-            #print(c)
-            return c
-        else:
-            dl = {'one':[1,2,3,4], 'two':[9,8,7,6]}
-            d = pd.DataFrame(dl, index=['a','b','c','d'])
-            #print(d)
-            #print(d.index)
-            #print(d.values)
-            return d
+        match method:
+            case 1:
+                return pd.DataFrame(np.arange(15).reshape(3, 5))
+            case 2:
+                dt = {'one':pd.Series([9, 8, 7, 6], index=['a','b','c','d']),
+                      'two':pd.Series({'a':9,'b':8})}
+                b = pd.DataFrame(dt)
+                return b
+            case 3:
+                c = pd.DataFrame(dt, index=['b','c','d'], columns=['two','three'])
+                #print(c)
+                return c
+            case _:
+                dl = {'one':[1,2,3,4], 'two':[9,8,7,6]}
+                d = pd.DataFrame(dl, index=['a','b','c','d'])
+                #print(d)
+                #print(d.index)
+                #print(d.values)
+                return d
         
     def operate(self):
        d = self.create(5)
