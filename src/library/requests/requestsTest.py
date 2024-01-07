@@ -18,6 +18,14 @@ Python-Goose: 提取文章类型web页面的功能库
 import requests
 import re
 
+def getDongfang(stock_num):
+    url = 'https://data.eastmoney.com/zjlx/' + stock_num + '.html'
+    html = requests.get(url)
+    html_str = html.content.decode()
+    #print(html_str)
+    title = re.search('title>(.*?)</', html_str, re.S)
+    print(title.group(1))
+
 def test_get():
     html = requests.get('https://www.huashengju.com')
     html_str = html.content.decode()
@@ -31,4 +39,4 @@ def test_post():
     print(html.content.decode())
 
 if __name__ == '__main__':
-    test_get()
+    getDongfang('300059')
