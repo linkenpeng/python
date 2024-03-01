@@ -11,3 +11,4 @@ bin
 venv
 include
 src/library/jieba/*.png
+__pycache__
