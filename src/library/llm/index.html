@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sample</title>
+</head>
+<body>
+  <label for="textInput">Prompt：</label>
+  <input type="textarea" id="textInput" placeholder="您有什么问题">
+  <button onclick="run_prompt()">执行prompt</button>
+  <p><textarea id="answer" rows="10" cols="50" readonly></textarea></p>
+<script>
+  current_text = document.getElementById('answer');
+  text = "";
+  char_index = 0
+  function run_prompt() {
+    var inputValue = document.getElementById('textInput').value;
+    document.getElementById('answer').value = "";
+    // 调用服务端的流式接口, 修改为自己的服务器地址和端口号
+    fetch('http://localhost:8000/eb_stream', {
+      method: 'post',
+      headers: {'Content-Type': 'text/plain'},
+      body: JSON.stringify({'prompt': inputValue})
+    })
+    .then(response => {
+      return response.body;
+    })
+    .then(body => {
+      const reader = body.getReader();
+      const decoder = new TextDecoder();
+      function read() {
+        return reader.read().then(({ done, value }) => {
+          if (done) { // 读取完成
+            return;
+          }
+          data = decoder.decode(value, { stream: true });
+          text += JSON.parse(data).result;
+          type();  // 打字机效果输出
+          return read();
+        });
+      }
+      return read();
+    })
+    .catch(error => {
+      console.error('发生错误:', error);
+    });
+  }
+
+  function type() {
+    let enableCursor = true;  // 启用光标效果
+    if (char_index < text.length) {
+      let txt = document.getElementById('answer').value;
+      let cursor = enableCursor ? "|" : "";
+      if (enableCursor && txt.endsWith("|")) {
+        txt = txt.slice(0, -1);
+      }
+      document.getElementById('answer').value = txt + text.charAt(char_index) + cursor;
+      char_index++;
+      setTimeout(type, 1000/5);  // 打字机速度控制, 每秒5个字
+    }
+  }
+</script>
+</body>
+</html>

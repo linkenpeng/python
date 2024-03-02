@@ -13,7 +13,7 @@ pyspider: 强大的Web页面爬取系统
 
 Beautiful Soup: HTML和XML的解析库
 
-Re：正则表达式解析和处理功能库
+Re:正则表达式解析和处理功能库
 
 Python-Goose: 提取文章类型web页面的功能库
 
@@ -52,7 +52,7 @@ def test_get():
     print(title.group(1))
 
 def test_post():
-    data = {'username':'15876505396','passType':'code','passCode':'7964','action':'1'}
+    data = {'username':'','passType':'code','passCode':'7964','action':'1'}
     html = requests.post('https://www.huashengju.com/?c=user&a=doLogin', data, headers=headers)
     print(html.content.decode())
 

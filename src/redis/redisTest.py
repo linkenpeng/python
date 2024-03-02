@@ -7,7 +7,7 @@ redis 测试
 import redis
 
 def get_client():
-    client = redis.StrictRedis()
+    client = redis.StrictRedis(host='localhost', port='6379')
     return client
 
 def string():
