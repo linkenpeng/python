@@ -9,7 +9,6 @@ pip install qianfan
 '''
 import os
 import requests
-import re
 from fake_useragent import UserAgent
 import redis
 import json
@@ -18,10 +17,14 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 
-os.environ["QIANFAN_ACCESS_KEY"] = ""
-os.environ["QIANFAN_SECRET_KEY"] = ""
+if(os.getenv('QIANFAN_ACCESS_KEY') == None): 
+    os.environ["QIANFAN_ACCESS_KEY"] = ""
+if(os.getenv('QIANFAN_SECRET_KEY') == None): 
+    os.environ["QIANFAN_SECRET_KEY"] = ""
 os.environ["REDIS_HOST"] = "localhost"
 os.environ["REDIS_PORT"] = "6379"
+
+print(os.environ)
 
 ua = UserAgent()
 headers = {
@@ -44,6 +47,7 @@ def get_redis_client():
     return client
 
 def get_access_token_info():
+    print(os)
     redis = get_redis_client()
     cache_key = 'test:qianfan:access_token'
     cache_value = redis.get(cache_key)
@@ -60,6 +64,7 @@ def get_access_token_info():
 
     data = {}
     response = requests.post(token_url, data, headers=headers)
+    print(response.content)
     if(response.content > 0):
         access_token_info = json.loads(response.content)
         redis.set(cache_key, response.content, ex=access_token_info['expires_in'])
