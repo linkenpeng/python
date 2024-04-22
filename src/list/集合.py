@@ -41,4 +41,15 @@ def removeDup():
     print(s)
     print(list(s))
 
-removeDup()
+def list_op():
+    x = set(range(5))
+    y = set(range(10))
+    print(x)
+    print(y)
+    print(y - x)
+    print(x & y)
+    print(x | y)
+    print(x ^ y)
+
+if __name__ == "__main__":
+    list_op()

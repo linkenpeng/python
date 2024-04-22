@@ -1,5 +1,5 @@
 # coding=gb2312
-#/usr/bin/env python (1)起始行
+#/usr/bin/env python (1)锟斤拷始锟斤拷
 
 import os
 import sys
@@ -16,6 +16,9 @@ def printOs():
     print(os.path.dirname(__file__))
     os.system("ls -a")
 
+def listFiles():
+    files = os.listdir(r'/usr')
+    print(files)
 
 def pathTest(path):
     print(os.path.abspath(path))
@@ -34,7 +37,7 @@ def pathTest(path):
 
 
 def cleanTemp():
-    for tmpdir in ('/tmp','C:\TEMP'):
+    for tmpdir in (r'/tmp','C:\TEMP'):
         if os.path.isdir(tmpdir):
             break
         else:
@@ -92,4 +95,5 @@ def cleanTemp():
         os.rmdir('example')
         print('*** DONE')
 
-printOs()
+if __name__ == '__main__':
+    listFiles()
