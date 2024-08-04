@@ -82,9 +82,20 @@ def maxNames(mans, k):
 
 def maxNames2(mans, k):
     firstK = k * [0]
-    newmans = sorted(mans, key=lambda sportname:sportname._score, reverse=True)
+    newmans = sorted(mans, key=lambda sportname: sportname._score, reverse=True)
     firstK = newmans[:k]
     return firstK
+
+def dictSort():
+    n = int(input('输入人数:'))
+    data = dict()
+    for i in range(n):
+        name, score = input('输入名字和成绩:').split()
+        data[name] = float(score)
+    print(data)
+    data2 = sorted(data.items(), key=lambda x: x[1], reverse=True)
+    print(data)
+    print(data2)
 
 
 def main1():
@@ -111,7 +122,7 @@ def main1():
 
 
 if __name__ == '__main__': 
-    main1()
+    dictSort()
 
 
 
