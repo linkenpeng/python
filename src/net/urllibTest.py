@@ -40,14 +40,35 @@ result = {}
 
 '''
 import json
-import urllib
+import urllib.request
+import time
 
-def send_re(url):
+def send_req(url):
     result = {}
     try:
-        response = urllib.request.urlopen(url=url, timeout=200)
+        start = time.perf_counter()   
+        response = urllib.request.urlopen(url=url, timeout=2)
+        end = time.perf_counter()
+        cost_time = cost_milli_time(start, end)
+        print(f'urlopen time: {cost_time}')
         data = response.read().decode('utf-8')
         result = json.loads(data)
+        print(result)
     except Exception as ex:
         print(ex)
     return result
+
+def cost_milli_time(start_time, end_time):
+    return (end_time - start_time) * 1000
+
+if __name__ == '__main__': 
+    start = time.perf_counter()   
+    send_req('http://localhost:8085/blog/1')
+    end = time.perf_counter()
+    cost_time = cost_milli_time(start, end)
+    print(f'send_req time: {cost_time}ms')
+    
+    
+    
+    
+    
