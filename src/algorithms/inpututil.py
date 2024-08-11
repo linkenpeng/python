@@ -10,7 +10,7 @@ class InputUtil:
     def __init__(self):
         pass
         
-    def inputOne(type_func):
+    def inputOne(self, type_func):
         if (callable(type_func)):
             try:
                 x = type_func(input('输入数据: '))
@@ -21,7 +21,26 @@ class InputUtil:
             x = input('输入数据: ')
         return x
     
-    def inputList(n, type_func=None):
+    def deal_prompt(prompt=None):
+        if(prompt is None or prompt == ''):
+            return '请输入数据: ' 
+        else:
+            return prompt
+
+    def inputTuple(type_func=None, prompt=None):
+        prompt = InputUtil.deal_prompt(prompt)
+        result = ()
+        if (callable(type_func)):
+            try:
+                result = map(type_func, input(prompt).split())
+            except ValueError:
+                print('数据类型错误, 需要输入: {}'.format(type_func))
+                return
+        else:
+            result = input(prompt).split()
+        return result
+    
+    def inputList(self, n, type_func=None):
         if (n <= 0):
             raise ValueError('必须是正整数!')
             return
@@ -38,8 +57,7 @@ class InputUtil:
         return result
 
 if __name__ == '__main__': 
-    print(InputUtil.inputList(3))
-    print(InputUtil.inputList(3, int))
+    print(InputUtil.inputTuple(int))
     
     
     
