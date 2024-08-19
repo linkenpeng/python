@@ -16,6 +16,13 @@ def printOs():
     print(os.path.dirname(__file__))
     os.system("ls -a")
 
+def printDefault():
+    print(os.environ.get('PROD_ENV_FLAG', '1'))
+    PROD_ENV_FLAG = os.environ.get('PROD_ENV_FLAG', '1') != "0"
+    print(PROD_ENV_FLAG)
+    req_timeout = 0.2 if PROD_ENV_FLAG else 0.23
+    print(req_timeout)
+
 def listFiles():
     files = os.listdir(r'/usr')
     print(files)
@@ -96,4 +103,4 @@ def cleanTemp():
         print('*** DONE')
 
 if __name__ == '__main__':
-    listFiles()
+    printDefault()

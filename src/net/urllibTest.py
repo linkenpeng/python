@@ -47,7 +47,7 @@ def send_req(url):
     result = {}
     try:
         start = time.perf_counter()   
-        response = urllib.request.urlopen(url=url, timeout=2)
+        response = urllib.request.urlopen(url=url, timeout=0.2)
         end = time.perf_counter()
         cost_time = cost_milli_time(start, end)
         print(f'urlopen time: {cost_time}')
