@@ -43,11 +43,14 @@ import json
 import urllib.request
 import time
 
+def cost_milli_time(start_time, end_time):
+    return (end_time - start_time) * 1000
+
 def send_req(url):
     result = {}
     try:
         start = time.perf_counter()   
-        response = urllib.request.urlopen(url=url, timeout=2)
+        response = urllib.request.urlopen(url=url, timeout=0.2)
         end = time.perf_counter()
         cost_time = cost_milli_time(start, end)
         print(f'urlopen time: {cost_time}')
@@ -57,9 +60,6 @@ def send_req(url):
     except Exception as ex:
         print(ex)
     return result
-
-def cost_milli_time(start_time, end_time):
-    return (end_time - start_time) * 1000
 
 if __name__ == '__main__': 
     start = time.perf_counter()   
