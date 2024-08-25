@@ -10,7 +10,7 @@ class InputUtil:
     def __init__(self):
         pass
         
-    def inputOne(self, type_func):
+    def inputOne(type_func):
         if (callable(type_func)):
             try:
                 x = type_func(input('输入数据: '))

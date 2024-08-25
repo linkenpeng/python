@@ -6,6 +6,8 @@ Created on Sun Aug 18 09:00:04 2024
 @author: pengzhenxian
 """
 
+from edgeutil import EdgeUtil
+
 # 集合存储邻接点
 def edge_by_collection():
     n = 7
@@ -92,4 +94,4 @@ def print_edge(n, v, edge):
 
 
 if __name__ == '__main__': 
-    edge_by_metric()
+    EdgeUtil.inputEdge(1,2)
