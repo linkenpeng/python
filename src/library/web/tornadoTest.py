@@ -8,11 +8,15 @@ pip install tornado
 
 import tornado.ioloop
 import tornado.web
+import time
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
         # 在这里处理GET请求
-        self.write("Hello, Tornado!")
+        data = 'Hello, Tornado!'
+        response = {"code":200, "message":"success", "data":data}
+        time.sleep(0.1)
+        self.write(response)
 
 # 定义应用程序的路由
 def make_app():
@@ -20,8 +24,17 @@ def make_app():
         (r"/", MainHandler),
     ])
 
-if __name__ == "__main__":
+def main():
     app = make_app()
-    app.listen(8088)  # 监听8088端口
-    print("Server is running on http://localhost:8088")
-    tornado.ioloop.IOLoop.current().start()  # 启动IOLoop
+    # 创建 HTTPServer 实例并传入 Tornado 应用
+    http_server = tornado.httpserver.HTTPServer(app)
+    # 监听 8888 端口
+    http_server.listen(8888)
+    # http_server.bind(8888, '0.0.0.0', backlog=2048)
+    # http_server.start(3) # only on linux
+    print("Server is running on http://localhost:8888")
+    # 启动 IOLoop
+    tornado.ioloop.IOLoop.current().start()
+
+if __name__ == "__main__":
+    main()
