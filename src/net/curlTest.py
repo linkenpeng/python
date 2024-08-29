@@ -1,12 +1,11 @@
 #!/usr/bin/env python
 #-*- coding:utf8 -*-
-
+import sys
+sys.path.append('../')
 import pycurl
 import io
 import time
-
-def cost_milli_time(start_time, end_time):
-    return (end_time - start_time) * 1000
+from util.TimeUtil import TimeUtil
 
 def get_by_curl(url):
     print(pycurl.version_info())
@@ -29,7 +28,7 @@ if __name__ == '__main__':
     start = time.perf_counter()
     get_by_curl('http://localhost:8085/blog/1')
     end = time.perf_counter()
-    cost_time = cost_milli_time(start, end)
+    cost_time = TimeUtil.millisecond(start, end)
     print(f'send_req time: {cost_time}ms')
 
 def get_qq():
