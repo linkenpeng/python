@@ -3,6 +3,12 @@
 # -*- coding: utf-8 -*-
 '''
 pip install qianfan
+pip install uvicorn
+pip install fastapi
+pip install requests
+pip install redis
+pip install json
+pip install fake_useragent
 
 # pip安装 fastapi 和 uvicorn
 # 执行 "uvicorn qianfan:app --host=0.0.0.0 --port=8000 --reload" 启动服务端
