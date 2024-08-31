@@ -9,7 +9,6 @@ Created on Sat Aug 31 09:23:37 2024
 """
 
 import queue
-from edgeutil import EdgeUtil
 from inpututil import InputUtil
 
 class Graph:
@@ -125,8 +124,39 @@ def inputGraph():
             edges[i][j] = e
     return (n, name, edges)
     
-    
-    
+def main():
+    filename = 'data/graphData.txt'
+    with open(filename) as f:
+        lines = f.readlines()
+        t = int(lines[0]) # 图的个数
+        names = []
+        
+        k = 1
+        for i in range(t):
+            print('---------------')
+            n = int(lines[k])
+            edges = [[0 for i in range(n)] for j in range(n)]
+            for m in range(n):
+                k += 1
+                names.append(lines[k])
+            for x in range(n):
+                k += 1
+                oneEdge = lines[k]
+                oneEdge = oneEdge.split()
+                for y in range(n):
+                    edges[x][y] = float(oneEdge[y])
+        
+            g = Graph(n, names, edges)
+            print('BST:')
+            BST(g)
+            print('DSTRe:')
+            DST(g)
+            print('DSTNoRe:')
+            DSTNoRe(g)
+            k += 1
+                
+if __name__ == '__main__': 
+    main()    
     
     
     
