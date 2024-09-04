@@ -34,10 +34,10 @@ def main():
     # 创建 HTTPServer 实例并传入 Tornado 应用
     http_server = tornado.httpserver.HTTPServer(app)
     # 监听 8888 端口
-    #http_server.listen(port)
-    http_server.bind(port, host, backlog=2048)
+    http_server.listen(port)
+    #http_server.bind(port, host, backlog=2048)
     #tornado.process.fork_processes(cpu_count)
-    http_server.start(cpu_count) # only on linux
+    #http_server.start(cpu_count) # only on linux
     print(f"Server is running on http://{host}:{port}")
 
     # 启动 IOLoop
