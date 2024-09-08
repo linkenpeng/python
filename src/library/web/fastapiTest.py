@@ -1,6 +1,12 @@
 '''
 pip install fastapi
 pip install uvicorn
+
+Jemeter: avarage:56ms TPS: 1640 
+
+stop: 
+lsof -i :8000 | awk 'NR>1 {print $2}' |xargs kill -9
+
 '''
 
 from fake_useragent import UserAgent
@@ -39,4 +45,4 @@ def read_item(item_id: int, q: str = None):
     return {"item_id": item_id, "q": q}
 
 if __name__ == '__main__':
-    uvicorn.run(app, host='localhost', port=8088)
+    uvicorn.run(app, host='localhost')

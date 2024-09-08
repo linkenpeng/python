@@ -4,6 +4,11 @@ Tornado是一个Python web框架和异步网络库，它使用非阻塞网络I/O
 这使得它非常适合于长轮询、WebSockets和其他需要高并发的应用。
 
 pip install tornado
+
+Jemeter: avarage:59 TPS:1580
+
+stop: 
+lsof -i :8088 | awk 'NR>1 {print $2}' |xargs kill -9
 '''
 
 import tornado.ioloop

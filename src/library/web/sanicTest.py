@@ -16,12 +16,15 @@ Sanic 特性
 CORS 保护等
 
 pip install sanic
-pip install Query
+
+Jemeter: avarage:55ms TPS: 1700 
+
+stop: 
+lsof -i :8000 | awk 'NR>1 {print $2}' |xargs kill -9
 '''
 from sanic import Sanic
 from sanic.response import json
 from datetime import datetime
-from query_tag import Query
 import multiprocessing
 
 app = Sanic("SanicAPP")
@@ -38,9 +41,12 @@ async def get_datetime():
 async def getdatetime(request):
     return json({"now": await get_datetime(), 'server_name': request.server_name, 'path': request.path})
 
+@app.route('/')
+def hello(request):
+    data = 'Hello, Sanic!'
+    response = {"code":200, "message":"success", "data":data}
+    return json(response)
 
-
-q = Query()
 
 async def request_parse(request):
     platform, chain, address = 'platform', 'chain', 'address'
@@ -53,29 +59,10 @@ async def request_parse(request):
     print(f'请求参数为{platform}, {chain}, {address}')
     return platform, chain, address
 
-@app.route('/tag', methods=['GET', 'POST'], version=1, version_prefix='/api/v')
-async def main(request):
-    platform, chain, address = await request_parse(request)
-    if platform == 'labelcloud':
-        if chain == 'eth':
-            addr = q.query_etherscan(address=address)
-            return json({'addr': addr})
-        elif chain == 'bsc':
-            addr = q.query_bscscan(address=address)
-            return json({'addr': addr})
-        elif chain == 'polygon':
-            addr = q.query_polygonscan(address=address)
-            return json({'addr': addr})
-        else:
-            json({'error': f'this chain no exists, available in [eth, bsc, polygon]'})
-    elif platform == 'oklink':
-        addr = q.query_oklink_com(chain=chain, address=address)
-        return json({'addr': addr})
-    else:
-        return json({'error': f'this platform no exists, available in [labelcloud, oklink]'})
-
 
 if __name__ == "__main__":
-    app.run(host=HOST, port=PORT, debug=False, auto_reload=True, workers=multiprocessing.cpu_count() // 5)
+    app_workers = multiprocessing.cpu_count() // 5
+    print('app_workers:', app_workers)
+    app.run(host=HOST, debug=False, auto_reload=True, workers=app_workers)
 
 
