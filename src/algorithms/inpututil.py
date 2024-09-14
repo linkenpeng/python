@@ -10,15 +10,16 @@ class InputUtil:
     def __init__(self):
         pass
         
-    def inputOne(type_func):
+    def inputOne(type_func, prompt=None):
+        prompt = InputUtil.deal_prompt(prompt)
         if (callable(type_func)):
             try:
-                x = type_func(input('输入数据: '))
+                x = type_func(input(prompt))
             except ValueError:
                 print('数据类型错误, 需要输入: {}'.format(type_func))
                 return
         else:
-            x = input('输入数据: ')
+            x = input(prompt)
         return x
     
     def deal_prompt(prompt=None):

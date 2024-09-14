@@ -6,6 +6,7 @@ Created on Sun Sep  8 09:17:57 2024
 @author: pengzhenxian
 """
 import random as rd
+from inpututil import InputUtil
 
 class BTree:
     class _Node:
@@ -43,6 +44,7 @@ class BTree:
             
         return
             
+    # 递归插入
     def insert_rec(self, data, node = None):
         if (self._root == None):
             self._root = self._Node(data)
@@ -63,12 +65,51 @@ class BTree:
                 node._left = self.insert_rec(data, node._left)
         return node
     
-    def print(self, node):
-        if (node._left != None):
-            print(node._left)
-        print(node._data)
-        if (node._right != None):
-            print(node._right)
+    def search(self, data):
+        p = self._root
+        while p != None:
+            if p._data == data:
+                return True
+            elif p._data < data:
+                p = p._right
+            else:
+                p = p._left
+        return False
+    
+    # 递归查找
+    def search_rec(self, data, node = None):
+        if node == None:
+            p = self._root
+        else:
+            p = node
+            
+        if p._data == data:
+            return True
+        elif p._data < data:
+            if (p._right == None):
+                return False
+            else:
+                return self.search_rec(data, p._right)
+        else:
+            if (p._left == None):
+                return False
+            else:
+                return self.search_rec(data, p._left)
+        return False
+    
+    def printTree(self, node):
+        if node != None:
+            if (node._left != None):
+                self.printTree(node._left)
+            print(node._data)
+            if (node._right != None):
+                self.printTree(node._right)
+                
+    def printSearchResult(self, data, result):
+        if (result):
+            print(f'{data} in tree')
+        else:
+            print(f'{data} not in tree')
     
 def main():
     n = rd.randint(1, 20)
@@ -77,7 +118,14 @@ def main():
     for i in range(n):
         d = rd.randint(1, 100)
         print(d)
-        tree.insert(d)
+        tree.insert_rec(d)
+        
+    print('-' * 30)
+    tree.printTree(tree._root)
+    
+    data = InputUtil.inputOne(int, '请输出需要查找的数:')
+    search_result = tree.search(data)
+    tree.printSearchResult(data, search_result)
 
 if __name__ == '__main__': 
     main()
