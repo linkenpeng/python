@@ -5,10 +5,23 @@ redis 测试
 '''
 
 import redis
+import json
 
 def get_client():
     client = redis.StrictRedis(host='localhost', port='6379')
     return client
+
+def list_op():
+    ids = list()
+    with open('test.txt') as f:
+        for line in f:
+            ids.append(line.replace('\n', ''))
+    json_data = json.dumps(ids)
+    print(json_data)
+    
+    redis = get_client()
+    redis.set('ids', json_data)
+    
 
 def string():
     client = get_client()
@@ -52,4 +65,4 @@ def collection():
         print(i)
 
 if __name__ == '__main__':
-    string()
+    list_op()
