@@ -13,7 +13,7 @@ def get_client():
 
 def list_op():
     ids = list()
-    with open('test.txt') as f:
+    with open('../test_data/test.txt') as f:
         for line in f:
             ids.append(line.replace('\n', ''))
     json_data = json.dumps(ids)

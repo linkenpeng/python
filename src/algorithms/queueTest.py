@@ -50,11 +50,24 @@ def pyStack(n):
     return
 
 
+def priority():
+    d = rd.randint(10, 20)
+    print(f'number {d}')
+    
+    q = que.PriorityQueue(n)
+    for i in range(n):
+        d = rd.randint(1, 100)
+        q.put(d)
+        print(d)
+    
+    print('-' * 30)
+    while (q.empty() == False):
+        print(q.get())
+    
 
 if __name__ == '__main__': 
     n = InputUtil.inputOne(int)
-    pyQueue(n)
-    pyStack(n)
+    priority()
     
     
     

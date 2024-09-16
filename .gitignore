@@ -12,4 +12,4 @@ venv
 include
 src/library/jieba/*.png
 __pycache__
-/src/redis/test.txt
+/src/test_data/
