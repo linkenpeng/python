@@ -1,5 +1,9 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 import re
 
+# re.search 找到一个就返回
 def search_test(html):
     groups = re.search('<li>(.*)</li>', html)
     print(groups)
@@ -8,7 +12,9 @@ def search_test(html):
 
 
 def find_all_test(html):
-    groups2 = re.findall('<li>(.*?)</li>', html)
+    # compile效率高些
+    partten = re.compile('<li>(.*?)</li>')
+    groups2 = re.findall(partten, html)
     print(groups2)
     print(groups2[0])
     print(groups2[1])
@@ -46,7 +52,15 @@ def match_test():
     if m is not None:
         print(m.group(1))
 
-if __name__ == '__main__':
+def test2():
+    s = '123abc4567xyzt'
+    p = r'(\d*)([a-zA-Z]*)'
+    m = re.match(p, s)
+    print(m.group())
+    m = re.findall(p, s)
+    print(m)
+
+def main():
     html = '''
         <div><ul><li>我是一个兵</li><ul></div>
         <div><ul><li>我是一个兵</li><ul></div>
@@ -54,3 +68,27 @@ if __name__ == '__main__':
     search_test(html)
     find_all_test(html)
     match_test()
+
+if __name__ == '__main__':
+    test2()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
