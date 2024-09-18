@@ -12,16 +12,23 @@ def get_client():
     return client
 
 def list_op():
-    ids = list()
+    ids_500 = list()
+    ids_20 = list()
     with open('../test_data/test.txt') as f:
+        c = 0
         for line in f:
-            ids.append(line.replace('\n', ''))
-    json_data = json.dumps(ids)
-    print(json_data)
-    
+            ids_500.append(line.replace('\n', ''))
+            if (c < 20):
+                ids_20.append(line.replace('\n', ''))
+            c+=1
+    json_data_500 = ','.join(ids_500)
+    json_data_20 = ','.join(ids_20)
+    print(json_data_500)
+    print(json_data_20)
+
     redis = get_client()
-    redis.set('ids', json_data)
-    
+    redis.set('ids_500', json_data_500)
+    redis.set('ids_20', json_data_20)
 
 def string():
     client = get_client()
