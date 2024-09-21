@@ -32,7 +32,7 @@ def py_ball_game():
     #screen = pygame.display.set_mode(size, pygame.NOFRAME)
     #screen = pygame.display.set_mode(size, pygame.FULLSCREEN)
     pygame.display.set_caption("Pygame壁球")
-    ball = pygame.image.load("PYG02-ball.gif")
+    ball = pygame.image.load("resources/imgs/PYG02-ball.gif")
     ballrect = ball.get_rect()
 
     while True:
