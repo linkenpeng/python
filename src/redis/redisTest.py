@@ -6,12 +6,29 @@ redis 测试
 
 import redis
 import json
+import gzip
+import io
+import time
 
 def get_client():
-    client = redis.StrictRedis(host='localhost', port='6379')
+    client = redis.StrictRedis(host='localhost', port='6379', password='')
     return client
 
-def list_op():
+# 压缩数据
+def compress_data(data):
+    buffer = io.BytesIO()
+    bytes_data = data.encode('utf-8')
+    with gzip.GzipFile(fileobj=buffer, mode='wb') as gz_file:
+        gz_file.write(bytes_data)
+    return buffer.getvalue()
+
+# 解压数据
+def decompress_data(compressed_data):
+    buffer = io.BytesIO(compressed_data)
+    with gzip.GzipFile(fileobj=buffer) as gz_file:
+        return gz_file.read()
+
+def write_list():
     ids_500 = list()
     ids_20 = list()
     with open('../test_data/test.txt') as f:
@@ -21,14 +38,34 @@ def list_op():
             if (c < 20):
                 ids_20.append(line.replace('\n', ''))
             c+=1
-    json_data_500 = ','.join(ids_500)
-    json_data_20 = ','.join(ids_20)
+    json_data_500 = '_101058726,'.join(ids_500)
+    json_data_20 = '_101058726,'.join(ids_20)
     print(json_data_500)
     print(json_data_20)
 
     redis = get_client()
-    redis.set('ids_500', json_data_500)
-    redis.set('ids_20', json_data_20)
+    redis.set('spus_500', json_data_500)
+    redis.set('spus_20', json_data_20)
+
+    start = time.perf_counter()
+    gz_json_data_500 = compress_data(json_data_500)
+    gz_json_data_20 = compress_data(json_data_20)
+    end = time.perf_counter()
+    print('gzip time:{}ms'.format((end - start)*1000))
+
+    redis.set('spus_gz_500', gz_json_data_500)
+    redis.set('spus_gz_20', gz_json_data_20)
+
+def read_one(key):
+    redis = get_client()
+    compress_data = redis.get(key)
+    print(compress_data)
+
+    start = time.perf_counter()
+    unzip_data = decompress_data(compress_data)
+    end = time.perf_counter()
+    print('un_gzip time:{}ms'.format((end - start)*1000))
+    print(unzip_data)
 
 def string():
     client = get_client()
@@ -72,4 +109,5 @@ def collection():
         print(i)
 
 if __name__ == '__main__':
-    list_op()
+    # write_list()
+    read_one('')
