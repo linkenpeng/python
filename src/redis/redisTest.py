@@ -11,7 +11,7 @@ import io
 import time
 
 def get_client():
-    client = redis.StrictRedis(host='localhost', port='6379')
+    client = redis.StrictRedis(host='localhost', port='6379', password='')
     return client
 
 # 压缩数据
@@ -56,13 +56,13 @@ def write_list():
     redis.set('spus_gz_500', gz_json_data_500)
     redis.set('spus_gz_20', gz_json_data_20)
 
-def read_list():
+def read_one(key):
     redis = get_client()
-    gz_json_data_500 = redis.get('spus_gz_500')
-    print(gz_json_data_500)
+    compress_data = redis.get(key)
+    print(compress_data)
 
     start = time.perf_counter()
-    unzip_data = decompress_data(gz_json_data_500)
+    unzip_data = decompress_data(compress_data)
     end = time.perf_counter()
     print('un_gzip time:{}ms'.format((end - start)*1000))
     print(unzip_data)
@@ -109,5 +109,5 @@ def collection():
         print(i)
 
 if __name__ == '__main__':
-    write_list()
-    read_list()
+    # write_list()
+    read_one('')
