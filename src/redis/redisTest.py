@@ -26,8 +26,9 @@ def compress_data(data):
 def decompress_data(compressed_data):
     buffer = io.BytesIO(compressed_data)
     with gzip.GzipFile(fileobj=buffer) as gz_file:
-        return gz_file.read()
-
+        hex_str = gz_file.read()
+        return hex_str
+    
 def write_list():
     ids_500 = list()
     ids_20 = list()
@@ -38,8 +39,8 @@ def write_list():
             if (c < 20):
                 ids_20.append(line.replace('\n', ''))
             c+=1
-    json_data_500 = '_101058726,'.join(ids_500)
-    json_data_20 = '_101058726,'.join(ids_20)
+    json_data_500 = '2_101058726,'.join(ids_500)
+    json_data_20 = '2_101058726,'.join(ids_20)
     print(json_data_500)
     print(json_data_20)
 
@@ -109,5 +110,5 @@ def collection():
         print(i)
 
 if __name__ == '__main__':
-    # write_list()
-    read_one('')
+    #write_list()
+    read_one('spus_gz_500')

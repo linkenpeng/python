@@ -43,18 +43,21 @@ class Animal():
         return self._width, self._height
 
 class Fish():
-    def __init__(self, img, width, height, posx, posy, speed):
+    def __init__(self, img, width, height, posx, posy, speedx, speedy, anl = 0):
         self.img = img
         self.width = width
         self.height = height
         self.posx = posx
         self.posy = posy
-        self.speed = speed
+        self.speedx = speedx
+        self.speedy = speedy
         self.fish = pygame.transform.scale(self.img, [self.width, self.height])
+        if anl != 0:
+            self.fish = pygame.transform.rotate(self.fish, anl)
         
     def update(self, time_eplased):
-        self.posx += time_eplased * self.speed
-        self.posy += time_eplased * self.speed
+        self.posx += time_eplased * self.speedx
+        self.posy += time_eplased * self.speedy
         
     def newPos(self, posx, posy):    
         self.posx = posx
@@ -76,9 +79,11 @@ class Fish():
     
     def setSpeed(self, speed = None):
         if speed:
-            self.speed = speed
+            self.speedx = speed
+            self.speedy = speed
         else:
-            self.speed *= -1
+            self.speedx *= -1
+            self.speedy *= -1
     
     def getImg(self):
         return self.img
@@ -89,21 +94,38 @@ class Fish():
     def draw(self):
         screen.blit(self.fish, [self.posx, self.posy])
     
+    def setDirect(self, angle):
+        self.fish = pygame.transform.rotate(self.fish, angle)
+    
+    def getRect(self):
+        rect = pygame.Rect(self.posx, self.posy, self.width, self.height)
+        return rect
+        
+    def collide(self, rect):
+        myrect = pygame.Rect(self.posx, self.posy, self.width, self.height)
+        return pygame.Rect.colliderect(myrect, rect)
+    
+    def get_score(self):
+        return random.randint(1, 10)
+
+def get_fish_img():
+    fish_img_src = path + 'fish.png'
+    fish_img = pygame.image.load(fish_img_src)
+    return fish_img
 
 def get_fish_group():
     fish_size_min = 50
     fish_size_max = 300
     fish_num = 10
     fish_group = list()
-    fish_img_src = path + 'fish.png'
-    fish_img = pygame.image.load(fish_img_src)
+    fish_img = get_fish_img()
     for i in range(fish_num):
         fish_width = random.randint(fish_size_min, fish_size_max)
         fish_height = random.randint(fish_size_min, fish_size_max)
         fish_posx = random.randint(0, screen_width - fish_width)
         fish_posy = random.randint(screen_height/2, screen_height - fish_height)
         fish_speed = random.randint(50, 200)
-        fish = Fish(fish_img, fish_width, fish_height, fish_posx, fish_posy, fish_speed)
+        fish = Fish(fish_img, fish_width, fish_height, fish_posx, fish_posy, fish_speed, 0, 0)
         fish.print()
         fish_group.append(fish)
         
@@ -121,28 +143,95 @@ def get_fish_by_animal():
     fish_size = fish.get_size()
     return fish
 
-fish_group = get_fish_group()
+def add_fish(fish_group):
+    fish_width = random.randint(50, 100)
+    fish_height = random.randint(50, 100)
+    direct = random.randint(0, 3)
+    if direct == 0:
+        fish_posx = 0
+        fish_posy = random.randint(0, screen_height - fish_height)
+        fish_speedx = random.randint(50, 200)
+        fish_speedy = 0
+        anl = 0
+    elif direct == 1:
+        fish_posx = screen_width - fish_width
+        fish_posy = random.randint(0, screen_height - fish_height)
+        fish_speedx = -random.randint(50, 200)
+        fish_speedy = 0
+        anl = 180
+    elif direct == 2:
+        fish_posx = random.randint(0, screen_width - fish_width)
+        fish_posy = 0
+        fish_speedx = 0
+        fish_speedy = random.randint(50, 200)
+        anl = 270
+    elif direct == 3:
+        fish_posx = random.randint(0, screen_width - fish_width)
+        fish_posy = screen_height - fish_height
+        fish_speedx = 0
+        fish_speedy = -random.randint(50, 200)
+        anl = 90    
+    fish = Fish(get_fish_img(), fish_width, fish_height, fish_posx, fish_posy, fish_speedx, fish_speedy, anl)
+    fish_group.append(fish)
+    
+    
+#fish_group = get_fish_group()
+fish_group = list()
 
 Sheep = Animal('sheep', path + 'sheep.png', 150, 150)
 sheep_pos = Sheep.get_pos()
+sheep_size = Sheep.get_size()
+sheep_speed = 100
 
 clock = pygame.time.Clock()
 clock.tick(30)  # limits FPS to 30
 running = True
 in_screen = True
 kill = False
+mouse_used = True
+score = 0
+font = pygame.font.SysFont('arial', 24)
+pygame.time.set_timer(USEREVENT + 1, 2000)
 while running:
+    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             # pygame.quit()
             running = False
             exit
-
+        elif event.type == USEREVENT + 1:
+            add_fish(fish_group)
+        if mouse_used:
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                x, y = pygame.mouse.get_pos()
+                sheep_pos[0] = x - sheep_size[0] / 2
+                sheep_pos[1] = y - sheep_size[1] / 2
+            
     #screen.fill((0, 0, 0))
     time_eplased = clock.tick() / 1000
+    
+    key = pygame.key.get_pressed()
+    if key[pygame.K_LEFT]:
+        sheep_pos[0] -= sheep_speed * time_eplased
+        if sheep_pos[0] <= 0:
+            sheep_pos[0] = 0
+    elif key[pygame.K_RIGHT]:
+        sheep_pos[0] += sheep_speed * time_eplased
+        if sheep_pos[0] > screen_width - sheep_size[0]:
+            sheep_pos[0] = screen_width - sheep_size[0]
+    if key[pygame.K_UP]:
+        sheep_pos[1] -= sheep_speed * time_eplased
+        if sheep_pos[1] <= 0:
+            sheep_pos[1] = 0
+    elif key[pygame.K_DOWN]:
+        sheep_pos[1] += sheep_speed * time_eplased
+        if sheep_pos[1] > screen_height - sheep_size[1]:
+            sheep_pos[1] = screen_height - sheep_size[1]
+    
     screen.blit(get_back_img(), [0,0])
     screen.blit(Sheep.get_img(), sheep_pos)
-    
+    sheep_rect = pygame.Rect(sheep_pos[0], sheep_pos[1], sheep_size[0], sheep_size[1])
+    font_img = font.render('{}.scores'.format(score), False, (0, 0, 0))
     fish_num = len(fish_group)
     for fish in fish_group:
         fish.update(time_eplased)
@@ -152,8 +241,16 @@ while running:
                 fish_group.remove(fish)
             else:
                 fish.setSpeed()
+                fish.setDirect(180)
         else:
-            fish.draw()
+            collide = fish.collide(sheep_rect)
+            if collide:
+                score += fish.get_score()
+                fish_group.remove(fish)
+            else:
+                fish.draw()
+    font_img = font.render('{}.scores'.format(score), False, (0, 0, 0))
+    screen.blit(font_img, [10, 10])
     
     '''
     fish_pos[0] += fish_speed * time_eplased
