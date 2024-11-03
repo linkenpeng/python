@@ -7,7 +7,22 @@ pip install requests beautifulsoup4 lxml
 requests http请求库，可以替代 urllib2,3
 Scrapy: 优秀的网络爬虫框架
 pyspider: 强大的Web页面爬取系统
+
 Beautiful Soup: HTML和XML的解析库
+解析器：
+- html.parser
+- lxml
+- lxml-xml
+- html5lib
+
+反爬与反反爬：
+- Header限制
+- 访问频率限制
+- 模拟登录验证码
+- IP限制
+- Cookie要求与Cookie限制
+
+
 Re:正则表达式解析和处理功能库
 Python-Goose: 提取文章类型web页面的功能库
 '''
