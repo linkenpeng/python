@@ -1,37 +1,18 @@
 #!/usr/bin/env python
 #-*- coding:utf8 -*-
-import json
 import sys
 sys.path.append('../')
 import pycurl
 import io
 import time
 from util.TimeUtil import TimeUtil
+from util.MockUtil import MockUtil
+from util.SignUtil import SignUtil
 
-def get_config():
-    config = {}
-    with open('../test_data/ra_config.txt') as file:
-        for line in file:
-            kv = line.split('=')
-            config[kv[0]] = kv[1].strip('\n')
-    return config
-
-def get_test_data():
-    with open('../test_data/ra_test_data.txt') as f:
-        post_data = f.read()
-    print(f'post_data: {post_data}')
-    json_data = json.dumps(post_data)
-    print(f'json_data: {json_data}')
-    return json_data
-
-def get_by_curl(post_json, url, config):
+def get_by_curl(post_json, url, headers):
     # print(pycurl.version_info())
     buffer = io.BytesIO()
     c = pycurl.Curl()
-    headers = [
-        'Content-Type: application/json',
-        'accessKey: ' + config['accessKey']
-    ]
     # 设置HTTP头部
     # c.setopt(c.HTTPHEADER, headers)
     c.setopt(c.HTTPHEADER, headers)
@@ -50,10 +31,23 @@ def get_by_curl(post_json, url, config):
     print(buffer.getvalue().decode('utf-8'))
 
 def request():
-    config = get_config()
+    mock = MockUtil()
+    config = mock.get_config('../test_data/ra_config.txt')
     url = config['url']
-    post_data = get_test_data()
-    get_by_curl(post_data, url, config)
+    current_time = time.time()
+    milliseconds = str(int(round(current_time * 1000)))
+    config['timestamp'] = milliseconds
+    signUtil = SignUtil()
+    authString = signUtil.get_auth_string(config)
+    headers = [
+        'Content-Type:application/json',
+        #'timestamp: ' + milliseconds,
+        #'authString: ' + authString,
+        #'accessKey: ' + config['accessKey']
+    ]
+    print(headers)
+    post_data = mock.get_test_data('../test_data/ra_test_data.txt')
+    get_by_curl(post_data, url, headers)
 
 def get_ssl_data(url = 'https://mail.qq.com/cgi-bin/loginpage'):
     html = io.BytesIO()
