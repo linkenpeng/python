@@ -5,5 +5,9 @@ class SignUtil:
         pass
 
     def get_auth_string(self, config):
-
-        return ''
+        authText = ('accessKey=' + config['accessKey']
+                    + '&accessSecret=' + config['accessSecret']
+                    + '&timestamp=' + config['timestamp'])
+        hash_object = hashlib.sha256(authText.encode())
+        authString = hash_object.hexdigest().upper()
+        return authString
