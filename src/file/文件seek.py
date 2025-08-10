@@ -1,5 +1,5 @@
-# coding=gb2312
-#/usr/bin/env python (1)ÆðÊ¼ÐÐ
+# -*- coding: utf-8 -*-
+#/usr/bin/env python (1)èµ·å§‹è¡Œ
 
 f = open("test.txt","w+")
 print(f.tell())

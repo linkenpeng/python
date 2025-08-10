@@ -1,4 +1,4 @@
-# -*- coding: GBK -*
+# -*- coding: utf-8 -*-
 import os,sys
 
 def func_countfileline(filepath):
@@ -22,21 +22,21 @@ def func_walks(path):
             print(f),
             file_count+=1
             line_count+=func_countfileline(f)
-    return '\n\nÎÄ¼şÊı£º'+str(file_count)+'\n×ÜĞĞÊı:'+str(line_count)
+    return '\n\næ–‡ä»¶æ•°ï¼š'+str(file_count)+'\næ€»è¡Œæ•°:'+str(line_count)
    
 if __name__ == '__main__':    
     if len(sys.argv)>=3 and (sys.argv[1]=='-f' or sys.argv[1]=='-d'):
         if sys.argv[1]=='-f' and os.path.isfile(sys.argv[2]):
             print(sys.argv[2]),
-            print('\n\n×ÜĞĞÊı: ' + str(func_countfileline(sys.argv[2])))
+            print('\n\næ€»è¡Œæ•°: ' + str(func_countfileline(sys.argv[2])))
         elif sys.argv[1]=='-d' and os.path.exists(sys.argv[2]):
             print(func_walks(sys.argv[2]))
         else:
-            print('-- ÎÄ¼ş(¼Ğ)'+sys.argv[2]+'²»´æÔÚ')
+            print('-- æ–‡ä»¶(å¤¹)'+sys.argv[2]+'ä¸å­˜åœ¨')
     elif len(sys.argv)==1:
         print(func_walks(os.getcwd()))
     else:
-        print('-- ²ÎÊıËµÃ÷ £º')
-        print('    1. '+sys.argv[0]+ ' -f' +' filename \tÍ³¼ÆÖ¸¶¨ÎÄ¼şĞĞÊı')
-        print('    2. '+sys.argv[0]+ ' -d' +' directory \tÍ³¼ÆÖ¸¶¨Ä¿Â¼(°üÀ¨×ÓÄ¿Â¼)ÏÂµÄÎÄ¼ş×ÜĞĞÊı')
-        print('    3. '+sys.argv[0]+ ' \tÍ³¼Æµ±Ç°Ä¿Â¼(°üÀ¨×ÓÄ¿Â¼)ÏÂµÄÎÄ¼ş×ÜĞĞÊı')
+        print('-- å‚æ•°è¯´æ˜ ï¼š')
+        print('    1. '+sys.argv[0]+ ' -f' +' filename \tç»Ÿè®¡æŒ‡å®šæ–‡ä»¶è¡Œæ•°')
+        print('    2. '+sys.argv[0]+ ' -d' +' directory \tç»Ÿè®¡æŒ‡å®šç›®å½•(åŒ…æ‹¬å­ç›®å½•)ä¸‹çš„æ–‡ä»¶æ€»è¡Œæ•°')
+        print('    3. '+sys.argv[0]+ ' \tç»Ÿè®¡å½“å‰ç›®å½•(åŒ…æ‹¬å­ç›®å½•)ä¸‹çš„æ–‡ä»¶æ€»è¡Œæ•°')
