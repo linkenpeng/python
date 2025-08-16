@@ -3,7 +3,7 @@
 '''
 json 测试
 '''
-
+import os
 import json
 
 def test_json():
@@ -16,5 +16,22 @@ def test_json():
     person_json_indent = json.dumps(person, indent=4)
     print(person_json_indent)
 
+def walk(obj, path=""):
+    if isinstance(obj, dict):
+        for k, v in obj.items():
+            walk(v, f"{path}/{k}")
+    elif isinstance(obj, list):
+        for idx, item in enumerate(obj):
+            walk(item, f"{path}[{idx}]")
+    else:
+        print(path, "=>", obj)
+
+def convertData():
+    print(os.getcwd())
+    with open('src/test_data/cityData.json', 'r') as f:
+        data = f.read()
+    jsonData = json.loads(data)
+    walk(jsonData)
+
 if __name__ == '__main__':
-    test_json()
+    convertData()
