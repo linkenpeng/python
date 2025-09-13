@@ -13,3 +13,4 @@ include
 src/library/jieba/*.png
 __pycache__
 /src/test_data/
+/src/config/
