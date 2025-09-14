@@ -14,8 +14,8 @@ from email.mime.text import MIMEText
 from datetime import datetime, timedelta
 from util.ConfigUtil import ConfigUtil
 
-# ========== 1. 改成你自己的 ==========
-MY_STOCKS = {'601138.SH': 1, '000858.SZ': 1}   # 代码: 持仓手数（随便填）
+# # 代码: 持仓手数（随便填）
+MY_STOCKS = {'601138.SH': 1, '000858.SZ': 1}   
 ConfigUtil = ConfigUtil()
 config = ConfigUtil.get_config('src/config/prd.txt')
 # https://tushare.pro/register → 个人中心 → 接口TOKEN
@@ -54,7 +54,7 @@ def alert():
         df = pro.daily(ts_code=code, start_date=(datetime.now()-timedelta(30)).strftime('%Y%m%d'))
         # 1. 跌破20日线
         print(df['close'])
-        ma20 = df['close'].rolling(20).iloc[-1]
+        ma20 = df['close'].rolling(20).mean().iloc[-1]
         ma20d[code] = ma20
     # 比对
     alerts = []

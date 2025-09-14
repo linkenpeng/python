@@ -12,12 +12,12 @@ Created on Mon Sep 16 09:35:52 2024
 import pandas as pd
 
 def read():
-    source_file = '../../test_data/company.xlsx'
+    source_file = 'src/test_data/company.xlsx'
     df = pd.read_excel(source_file)
     print(df.head())
     
     
-    targe_file = '../../test_data/company_temp.xlsx'
+    targe_file = 'src/test_data/company_temp.xlsx'
     df.to_excel(targe_file)
     
 def write():
