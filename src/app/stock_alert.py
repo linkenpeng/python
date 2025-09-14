@@ -5,27 +5,26 @@
 作者：你本人
 """
 import sys
-sys.path.append('../')
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) + '/src')
 import tushare as ts
 import requests
 import smtplib
 from email.mime.text import MIMEText
 from datetime import datetime, timedelta
-from util.MockUtil import MockUtil
+from util.ConfigUtil import ConfigUtil
 
 # ========== 1. 改成你自己的 ==========
 MY_STOCKS = {'601138.SH': 1, '000858.SZ': 1}   # 代码: 持仓手数（随便填）
-mock = MockUtil()
-config = mock.get_config('config/prd.txt')
-print(config)
-
+ConfigUtil = ConfigUtil()
+config = ConfigUtil.get_config('src/config/prd.txt')
 # https://tushare.pro/register → 个人中心 → 接口TOKEN
-TU_TOKEN   = ''
+TU_TOKEN   = config['TU_TOKEN']
 # https://sct.ftqq.com → 微信扫码 → 拿到 SENDKEY
-SCT_KEY    = ''
-MAIL_USER  = ''
-MAIL_PASS  = ''
-MAIL_TO    = ''
+SCT_KEY    = config['SCT_KEY']
+MAIL_USER  = config['MAIL_USER']
+MAIL_PASS  = config['MAIL_PASS']
+MAIL_TO    = config['MAIL_TO']
 # =======================================
 
 ts.set_token(TU_TOKEN)
