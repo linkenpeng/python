@@ -70,9 +70,10 @@ def alert():
             alerts.append(f'{code} 放量 {vol/avg_vol:.1f} 倍')
     if alerts:
         text = '\n'.join(alerts)
+        print('提醒内容:\n', text)
         send_wechat('持仓预警')
         send_mail(text)
-        print('已发送提醒:\n', text)
+        print('已发送提醒')
     else:
         print('一切正常，无提醒')
 
