@@ -1,7 +1,7 @@
 # coding=gb2312
 #/usr/bin/env python
 
-#元组
+#鍏冪粍
 def tupleVarArgs(arg1, arg2='defaultB',*theRest):
     'display regular args and non-keyword variale args'
     print('formal arg 1:', arg1)
@@ -17,7 +17,7 @@ tupleVarArgs('abc', 123, 'xyz',456.789)
 
 print('||'*20)
 
-#字典
+#瀛楀吀
 def dictVarArgs(arg1, arg2='defaultB',**theRest):
     'display regular args and non-keyword variale args'
     print('formal arg 1:', arg1)

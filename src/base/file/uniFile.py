@@ -1,4 +1,4 @@
-# coding=gb2312
+# -*- coding: utf-8 -*-
 #!/usr/bin/env python
 '''
 An example of reading and writing Unicode strings:
