@@ -1,5 +1,5 @@
-# coding=gb2312
 #!/usr/bin/env python
+#-*- coding:utf8 -*-
 
 def test():
     fdict = dict((['x',1],['y',2]))
@@ -59,6 +59,37 @@ def test():
     dict4 = dict2.copy()
     print(dict4)
 
+def test2():
+    dc = {"a":1, "b":2, "c": 3, "d":4}
+
+    print(dc)
+    print(dc["a"])
+    print(type(dc))
+
+    del dc['a'];
+
+    print(dc)
+
+    print("b" in dc)
+
+    print(dc.keys())
+
+    print(dc.values())
+
+    print(dc.items())
+
+    print(dc.get("a", 11))
+
+    print(dc.pop("b", 22))
+
+    print(dc.popitem())
+
+    print(len(dc))
+
+    dc.clear()
+
+    print(dc)
+    
 if __name__ == '__main__':
     test()
 

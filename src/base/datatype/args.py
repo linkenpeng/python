@@ -1,5 +1,5 @@
-# coding=gb2312
-#/usr/bin/env python
+#!/usr/bin/env python
+#-*- coding:utf8 -*-
 
 #元组
 def tupleVarArgs(arg1, arg2='defaultB',*theRest):
