@@ -2,11 +2,12 @@
 """
 持仓监控脚本 —— 每晚 15:05 跑
 功能：跌破20日线 / 放量1.5倍  → 邮件+微信提醒
-作者：你本人
+pip install tushare
+pip install requests
 """
 import sys
 import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) + '/src')
+sys.path.append(os.getcwd() + '/src')
 import tushare as ts
 import requests
 import smtplib
@@ -22,8 +23,11 @@ config = ConfigUtil.get_config('src/config/prd.txt')
 TU_TOKEN   = config['TU_TOKEN']
 # https://sct.ftqq.com → 微信扫码 → 拿到 SENDKEY
 SCT_KEY    = config['SCT_KEY']
+# 发送邮箱
 MAIL_USER  = config['MAIL_USER']
+# 发送邮箱授权码 如：登录QQ邮箱 → 账号与安全 → 安全设置 → 开启POP3/SMTP服务 → 获取授权码
 MAIL_PASS  = config['MAIL_PASS']
+# 接收邮箱
 MAIL_TO    = config['MAIL_TO']
 # =======================================
 

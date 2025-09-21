@@ -1,6 +1,4 @@
-import sys
-import json
-
+# -*- coding: utf-8 -*-
 class ConfigUtil:
     def __init__(self):
         pass
