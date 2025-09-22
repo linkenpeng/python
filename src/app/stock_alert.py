@@ -18,7 +18,7 @@ from util.ConfigUtil import ConfigUtil
 # # 代码: 持仓手数（随便填）
 MY_STOCKS = {'601138.SH': 1, '000858.SZ': 1}   
 ConfigUtil = ConfigUtil()
-config = ConfigUtil.get_config('src/config/prd.txt')
+config = ConfigUtil.get_config('conf/prd.txt')
 # https://tushare.pro/register → 个人中心 → 接口TOKEN
 TU_TOKEN   = config['TU_TOKEN']
 # https://sct.ftqq.com → 微信扫码 → 拿到 SENDKEY
