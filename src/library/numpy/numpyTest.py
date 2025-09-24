@@ -12,6 +12,44 @@ def np_list():
     np_list = np.arange(10000)
     np_list**2
 
+    np.arange(10) # 10个，不包括10，步长为1
+    np.arange(3, 10, 0.1) # 从3到9，步长为0.1
+    # 从2.0到3.0，生成均匀的5个值，不包括终值3.0
+    np.linspace(2.0, 3.0, num=5, endpoint=False)
+    # 返回一个6×4的随机数组，浮点型
+    np.random.randn(6, 4)
+    # 指定范围、指定形状的数组，整型
+    np.random.randint(3, 7, size=(2, 4))
+    # 创建值为0的数组
+    np.zeros(6) # 6个浮点0.
+    np.zeros((5, 6), dtype=int) # 5×6整型0
+    np.ones(4) # 同上
+    np.empty(4) # 同上
+    # 创建一份和目标结构相同的0值数组
+    np.zeros_like(np.arange(6))
+    np.ones_like(np.arange(6)) # 同上
+    np.empty_like(np.arange(6)) # 同上
+
+    n = np.arange(10)
+    n.shape() # 数组的形状，返回值是一个元组
+    n.shape = (4, 1) # 改变形状
+    a = n.reshape((2,2)) # 改变原数组的形状，创建一个新数组
+    n.dtype # 数据类型
+    n.ndim # 维度数
+    n.size # 元素数
+    np.typeDict # np的所有数据类型
+
+def np_data_type():
+    np.int64 # 有符号64位整型
+    np.float32 # 标准双精度浮点类型
+    np.complex # 由128位的浮点数组成的复数类型
+    np.bool # bool类型（True或False）
+    np.object # Python中的object类型
+    np.string # 固定长度的string类型
+    np.unicode # 固定长度的unicode类型
+    np.NaN # np.float的子类型
+    np.nan
+
 def get_day_change():
     stock_cnt = 200
     view_days = 504

@@ -44,10 +44,25 @@ def npGradient():
     print(c)
     print(np.gradient(c))
 
+def statics():
+    np.array([10, 20, 30, 40])[:3] # 支持类似列表的切片
+    a = np.array([10, 20, 30, 40])
+    b = np.array([1, 2, 3, 4])
+    a+b # array([11, 22, 33, 44])（矩阵相加）
+    a-1 # array([9, 19, 29, 39])
+    4*np.sin(a)
 
-npGradient()
+    # 以下是一些数学函数的例子，还支持非常多的数学函数
+    a.max() # 40
+    a.min() # 10
+    a.sum() # 100
+    a.std() # 11.180339887498949
+    a.all() # True
+    a.cumsum() # array([10, 30, 60, 100])
+    b.sum(axis=1) # 多维可以指定方向
 
-
+if __name__ == '__main__': 
+    npGradient()
 
 
 
