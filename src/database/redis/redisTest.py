@@ -3,15 +3,20 @@
 '''
 redis 测试
 '''
-
 import redis
 import json
 import gzip
 import io
 import time
+import sys
+import os
+sys.path.append(os.getcwd() + '/src')
+from util.ConfigUtil import ConfigUtil
+ConfigUtil = ConfigUtil()
 
 def get_client():
-    client = redis.StrictRedis(host='localhost', port='6379', password='')
+    config = ConfigUtil.get_config('conf/dev.txt')
+    client = redis.StrictRedis(host=config['redis_host'], port=config['redis_port'], password=config['redis_password'])
     return client
 
 # 压缩数据
@@ -32,7 +37,7 @@ def decompress_data(compressed_data):
 def write_list():
     ids_500 = list()
     ids_20 = list()
-    with open('../test_data/test.txt') as f:
+    with open('test_data/test.txt') as f:
         c = 0
         for line in f:
             ids_500.append(line.replace('\n', ''))

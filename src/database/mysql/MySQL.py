@@ -2,10 +2,20 @@
 # coding=utf-8
 
 import sys
+import pymysql
+pymysql.install_as_MySQLdb()   # 可选：为了兼容旧代码
 import MySQLdb
+import sys
+import os
+sys.path.append(os.getcwd() + '/src')
+from util.ConfigUtil import ConfigUtil
+ConfigUtil = ConfigUtil()
 
 def connMySQL():
-    conn = MySQLdb.connect(user='root', passwd='123456', host='localhost',db='test')
+    config = ConfigUtil.get_config('conf/dev.txt')
+    conn = pymysql.connect(host=config['mysql_host'], port=int(config['mysql_port']), 
+                           user=config['mysql_user'], passwd=config['mysql_password'], db=config['mysql_database'])
+    #conn = MySQLdb.connect(user='root', passwd='123456', host='localhost',db='test')
     cursor = conn.cursor()
     sql = 'select * from user limit 10'
     cursor.execute(sql)
