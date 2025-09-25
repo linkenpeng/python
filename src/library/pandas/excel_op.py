@@ -16,8 +16,8 @@ ssl._create_default_https_context = ssl._create_unverified_context
 def read():
     source_file = 'test_data/company.xlsx'
     df = pd.read_excel(source_file)
-    print(df.head())
-    
+    #print(df.head())
+    print(df['公司名录'])
     
     targe_file = 'test_data/company_temp.xlsx'
     df.to_excel(targe_file)
@@ -36,7 +36,20 @@ def read_from_url():
     df.dtypes # 查看各字段类型
     df.axes # 显示数据行和列名
     df.columns # 列名
-    
+
+def check_type(pd, s):
+    pd.api.types.is_bool_dtype(s)
+    pd.api.types.is_categorical_dtype(s)
+    pd.api.types.is_datetime64_any_dtype(s)
+    pd.api.types.is_datetime64_ns_dtype(s)
+    pd.api.types.is_datetime64_dtype(s)
+    pd.api.types.is_float_dtype(s)
+    pd.api.types.is_int64_dtype(s)
+    pd.api.types.is_numeric_dtype(s)
+    pd.api.types.is_object_dtype(s)
+    pd.api.types.is_string_dtype(s)
+    pd.api.types.is_timedelta64_dtype(s)
+
 def write():
     pass
 
