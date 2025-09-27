@@ -22,6 +22,13 @@ def read():
     targe_file = 'test_data/company_temp.xlsx'
     df.to_excel(targe_file)
 
+def read_excel(file_path):
+    # 返回DataFrame
+    pd.read_excel('team.xlsx') # 默认读取第一个标签页Sheet
+    pd.read_excel('path_to_file.xlsx', sheet_name='Sheet1') # 指定Sheet
+    # 从URL读取
+    pd.read_excel('https://www.gairuo.com/file/data/dataset/team.xlsx')
+
 def read_from_url():
     # 以下两种效果一样，如果是网址，它会自动将数据下载到内存
     df = pd.read_excel('https://www.gairuo.com/file/data/dataset/team.xlsx')

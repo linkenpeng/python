@@ -41,8 +41,6 @@ class SeriesOperate(object):
     def sort(self):
         a = pd.Series([9, 8, 7, 6], index=['a','b','c','d'])
         
-        
-
 class DataFrameOperate(object):
     
     def __init__(self, nm = 'Peter'):
@@ -178,9 +176,9 @@ class DataFrameOperate(object):
         plt.plot(hprice, 'go-', m2, 'ro-')
         plt.show()
     
-dfo = DataFrameOperate('Myron')
-dfo.analysis()
-
+if __name__ == '__main__': 
+    dfo = DataFrameOperate('Myron')
+    dfo.analysis()
 
 
 

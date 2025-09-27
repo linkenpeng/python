@@ -57,5 +57,5 @@ def abu():
     tsla_df = ABuSymbolPd.make_kl_df('usTSLA', n_folds=2)
     tsla_df.tail()
 
-abu()
-
+if __name__ == '__main__': 
+    abu()
