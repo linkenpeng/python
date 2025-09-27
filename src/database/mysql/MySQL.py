@@ -3,8 +3,8 @@
 
 import sys
 import pymysql
-pymysql.install_as_MySQLdb()   # 可选：为了兼容旧代码
-import MySQLdb
+#pymysql.install_as_MySQLdb()   # 可选：为了兼容旧代码
+#import MySQLdb
 import sys
 import os
 sys.path.append(os.getcwd() + '/src')
