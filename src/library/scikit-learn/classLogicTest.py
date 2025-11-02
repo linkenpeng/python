@@ -41,14 +41,14 @@ def examPass():
     file_path = str(Path(__file__).parent.resolve()) + '/examdata.csv'
     print(file_path)
     data = pd.read_csv(file_path)
-    print(data.head())
+    #print(data.head())
 
     fig1 = plt.figure()
     plt.scatter(data.loc[:, 'Exam1'], data.loc[:, 'Exam2'])
     plt.title('Exam1 and Exam2')
     plt.xlabel('Exam1')
     plt.ylabel('Exam2')
-    plt.show()
+    #plt.show()
 
     fig2 = plt.figure()
     mask = data.loc[:, 'Pass'] == 1
@@ -60,7 +60,7 @@ def examPass():
     plt.xlabel('Exam1')
     plt.ylabel('Exam2')
     plt.legend((passed, failed), ('Passed', 'Failed'))
-    plt.show()
+    #plt.show()
 
     X = data.drop('Pass', axis=1)
     y = data.loc[:, 'Pass']
@@ -74,12 +74,12 @@ def examPass():
     print(f"Accuracy: {accuracy}")
 
     y_test = LR.predict([[70, 65]])
-    print(y_test)
+    #print(y_test)
 
     theta1, theta2 = LR.coef_[0][0], LR.coef_[0][1]
     theta0 = LR.intercept_[0]
     X2_new = -(theta0 + theta1 * x1) / theta2
-    print(theta0, theta1, theta2)
+    #print(theta0, theta1, theta2)
 
     fig3 = plt.figure()
     plt.scatter(data.loc[:, 'Exam1'], data.loc[:, 'Exam2'])
@@ -87,6 +87,32 @@ def examPass():
     plt.xlabel('Exam1')
     plt.ylabel('Exam2')
     plt.plot(x1, X2_new)
+    #plt.show()
+
+    X1_2 = x1 * x1
+    x2_2 = x2 * x2
+    X1_x2 = x1 * x2
+    x_new = {'x1': x1, 'x2': x2, 'x1_2': X1_2, 'x2_2': x2_2, 'x1_x2': X1_x2}
+    x_new = pd.DataFrame(x_new)
+    #print(x_new.head())
+
+    x1 = x1.sort_values()
+    LR2 = LogisticRegression()
+    LR2.fit(x_new, y)
+    y_predictions2 = LR2.predict(x_new)
+    accuracy2 = accuracy_score(y, y_predictions2)
+    print(f"Accuracy: {accuracy2}")
+    theta0 = LR2.intercept_
+    theta1, theta2, theta3, theta4, theta5 = LR2.coef_[0][0], LR2.coef_[0][1], LR2.coef_[0][2], LR2.coef_[0][3], LR2.coef_[0][4]
+    print(theta0, theta1, theta2, theta3, theta4, theta5)
+    a = theta0
+    b = theta5 * x1 + theta2
+    c = theta0 + theta1 * x1 + theta3 * x1 * x1
+    x2_new_boudary = (-b + np.sqrt(b * b - 4 * a * c)) / (2 * a)
+    print(x2_new_boudary)
+
+    fig4 = plt.figure()
+    plt.plot(x1, x2_new_boudary)
     plt.show()
 
 if __name__ == '__main__': 
