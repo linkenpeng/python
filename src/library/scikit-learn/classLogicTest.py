@@ -115,5 +115,68 @@ def examPass():
     plt.plot(x1, x2_new_boudary)
     plt.show()
 
+
+
+def chipTest():
+    file_path = str(Path(__file__).parent.resolve()) + '/test.csv'
+    print(file_path)
+    data = pd.read_csv(file_path)
+    print(data.head())
+
+    fig1 = plt.figure()
+    mask = data.loc[:, 'pass'] == 1
+    passed = plt.scatter(data.loc[:, 'test1'][mask], data.loc[:, 'test2'][mask])
+    failed = plt.scatter(data.loc[:, 'test1'][~mask], data.loc[:, 'test2'][~mask])
+    plt.title('Test1 and Test2')
+    plt.xlabel('Test1')
+    plt.ylabel('Test2')
+    plt.legend((passed, failed), ('Passed', 'Failed'))
+    plt.show()
+
+    X = data.drop('pass', axis=1)
+    y = data.loc[:, 'pass']
+    x1 = data.loc[:, 'test1']
+    x2 = data.loc[:, 'test2']
+    X1_2 = x1 * x1
+    x2_2 = x2 * x2
+    X1_x2 = x1 * x2
+    x_new = {'x1': x1, 'x2': x2, 'x1_2': X1_2, 'x2_2': x2_2, 'x1_x2': X1_x2}
+    x_new = pd.DataFrame(x_new)
+
+    x1 = x1.sort_values()
+    LR2 = LogisticRegression()
+    LR2.fit(x_new, y)
+    y_predictions2 = LR2.predict(x_new)
+    accuracy2 = accuracy_score(y, y_predictions2)
+    print(f"Accuracy: {accuracy2}")
+    theta0 = LR2.intercept_
+    theta1, theta2, theta3, theta4, theta5 = LR2.coef_[0][0], LR2.coef_[0][1], LR2.coef_[0][2], LR2.coef_[0][3], LR2.coef_[0][4]
+    print(theta0, theta1, theta2, theta3, theta4, theta5)
+    a = theta4
+    b = theta5 * x1 + theta2
+    c = theta0 + theta1 * x1 + theta3 * x1 * x1
+    x2_new_boudary = (-b + np.sqrt(b * b - 4 * a * c)) / (2 * a)
+    x3_new_boudary = (-b - np.sqrt(b * b - 4 * a * c)) / (2 * a)
+    print(x2_new_boudary)
+
+    x2_new_boudary1 = []
+    x2_new_boudary1.append(x2_new_boudary)
+    x2_new_boudary2 = []
+    x2_new_boudary2.append(x3_new_boudary)
+    x1_range = [-0.9 + x/10000 for x in range(190000)] 
+    x1_range = np.array(x1_range)
+
+    fig2 = plt.figure()
+    mask = data.loc[:, 'pass'] == 1
+    passed = plt.scatter(data.loc[:, 'test1'][mask], data.loc[:, 'test2'][mask])
+    failed = plt.scatter(data.loc[:, 'test1'][~mask], data.loc[:, 'test2'][~mask])
+    plt.plot(x1, x2_new_boudary)
+    plt.plot(x1, x3_new_boudary)
+    plt.title('Test1 and Test2')
+    plt.xlabel('Test1')
+    plt.ylabel('Test2')
+    plt.legend((passed, failed), ('Passed', 'Failed'))
+    plt.show()
+
 if __name__ == '__main__': 
-    examPass()
+    chipTest()
