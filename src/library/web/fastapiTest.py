@@ -1,4 +1,5 @@
 '''
+pip install fake_useragent
 pip install fastapi
 pip install uvicorn
 

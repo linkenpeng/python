@@ -1,7 +1,7 @@
-#coding=gb2312
-#/usr/bin/env python
+#/usr/bin/env/ python
+# -*- coding: utf-8 -*-
 
-'╤ЮоъЁлобть'
+'О©╫О©╫О©╫ъЁО©╫О©╫О©╫О©╫О©╫'
 
 import urllib2
 import time

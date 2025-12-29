@@ -1,6 +1,16 @@
 #!/usr/bin/env python
-
 from time import ctime, sleep
+
+def my_decorator(func):
+    def wrapper():
+        print("do before")
+        func()
+        print("do after")
+    return wrapper
+
+@my_decorator
+def say_hello():
+    print("hello")
 
 def tsfunc(func):
     def wrappedFunc():
@@ -13,6 +23,7 @@ def foo():
     pass    
     
 def main():
+    say_hello()
     foo()
     sleep(4)
     
@@ -22,33 +33,3 @@ def main():
          
 if __name__ == '__main__':
     main()
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-        
-        
-        
-        
-        
-        
-        
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-
-

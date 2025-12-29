@@ -1,7 +1,7 @@
-# coding=gb2312
-#/usr/bin/env python
+#/usr/bin/env/ python
+# -*- coding: utf-8 -*-
 
-"¶àÏß³Ì²âÊÔ"
+"ï¿½ï¿½ï¿½ß³Ì²ï¿½ï¿½ï¿½"
 
 from time import sleep, ctime
 import threading
@@ -43,7 +43,7 @@ def main():
     print('all DONE at:', ctime())      
     
     
-if __name__ == '__main__': #(7) Ö÷³ÌÐò
+if __name__ == '__main__': #(7) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     main()
     
     
